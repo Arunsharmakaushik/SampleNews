@@ -4,7 +4,7 @@ export type RootStackParams = {
   splash: undefined;
   getStarted: undefined;
   authStack: NavigatorScreenParams<AuthStackParams>;
-  mainStack: NavigatorScreenParams<MainStackParams>;
+  mainStack: NavigatorScreenParams<DrawerStackParams>;
 };
 
 export type AuthStackParams = {
@@ -12,7 +12,7 @@ export type AuthStackParams = {
 };
 
 export type DrawerStackParams = {
-  home:undefined;
+  home: undefined;
   categories: undefined;
   bookmarks: undefined;
   About: undefined;

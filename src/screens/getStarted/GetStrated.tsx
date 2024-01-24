@@ -27,7 +27,7 @@ const GetStrated: React.FC<GetStartedProps> = ({navigation}) => {
       <TouchableOpacity
         onPress={() => {
           storage.setIsOnBoarded(true);
-          navigation.navigate('mainStack');
+          navigation.replace('mainStack', {screen: 'home'});
         }}
         style={styles.btn}>
         <Text style={styles.btnText}>Get Started</Text>

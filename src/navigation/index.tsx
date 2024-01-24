@@ -1,5 +1,5 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import About from '../screens/about';
 import BookMarks from '../screens/bookmarks';
@@ -11,9 +11,10 @@ import Splash from '../screens/splash';
 import {
   AuthStackParams,
   DrawerStackParams,
-  RootStackParams
+  RootStackParams,
 } from '../typings/route';
 import DrawerContent from './DrawerContent';
+import HeadBar from '../components/headBar/HeadBar';
 
 const RootStack = createNativeStackNavigator<RootStackParams>();
 const Auth = createNativeStackNavigator<AuthStackParams>();
@@ -36,7 +37,18 @@ export const DrawerStack = () => {
     <Drawer.Navigator
       initialRouteName="home"
       screenOptions={{
-        headerShown: false,
+        header: ({navigation, route}) => {
+          return (
+            <HeadBar
+              currentScreenName={route.name}
+              isBack={navigation.canGoBack()}
+              onBackPress={() => {
+                navigation.goBack();
+              }}
+              onMenuPress={() => navigation.openDrawer()}
+            />
+          );
+        },
       }}
       drawerContent={() => <DrawerContent />}>
       <Drawer.Screen name="home" component={Home} />
