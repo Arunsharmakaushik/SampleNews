@@ -19,7 +19,7 @@ const Splash: React.FC<SplashProps> = ({navigation}) => {
   React.useEffect(() => {
     const timeout = setTimeout(() => {
       if (isOnBoarded) {
-        navigation.replace('mainStack');
+        navigation.replace('mainStack', {screen: 'home'});
       } else {
         navigation.replace('getStarted');
       }
