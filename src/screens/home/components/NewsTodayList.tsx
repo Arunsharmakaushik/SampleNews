@@ -49,7 +49,6 @@ const NewsTodayList = () => {
       renderItem={renderList}
       keyExtractor={keyExtractor}
       horizontal
-      showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.listCont}
       showsHorizontalScrollIndicator
     />
@@ -75,9 +74,6 @@ const styles = StyleSheet.create({
     height: heightPercentageToDP(24),
     width: widthPercentageToDP(90),
     resizeMode: 'cover',
-    // justifyContent: 'space-between',
-    // flexDirection: 'row',
-    // alignItems: 'flex-end',
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),
   },

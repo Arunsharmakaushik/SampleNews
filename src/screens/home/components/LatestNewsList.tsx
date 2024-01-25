@@ -1,5 +1,11 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import React, {useState} from 'react';
 import {Image} from 'react-native';
 import {INewsData} from '../../../typings/common';
 import {NewsData} from '../../../seeds/NewsData';
@@ -18,6 +24,19 @@ import FONTS from '../../../assets/fonts/indec';
 
 const LatestNewsList = () => {
   const keyExtractor = (item: INewsData, index: number) => item.title + index;
+  const [data, setData] = useState(NewsData);
+  const [loading, setLoading] = useState(false);
+
+  const loadMoreData = async () => {
+    if (!loading) {
+      setLoading(true);
+      setTimeout(() => {
+        const newData = [...data, ...data.splice(0, 2)];
+        setData(newData);
+        setLoading(false);
+      }, 300);
+    }
+  };
 
   const renderList = ({item}: {item: INewsData}) => {
     return (
@@ -47,11 +66,16 @@ const LatestNewsList = () => {
 
   return (
     <FlatList
-      data={NewsData}
+      data={data}
       renderItem={renderList}
       keyExtractor={keyExtractor}
       contentContainerStyle={styles.listCont}
-      showsHorizontalScrollIndicator
+      showsVerticalScrollIndicator={false}
+      onEndReached={loadMoreData}
+      onEndReachedThreshold={0.5} // Threshold for calling onEndReached
+      ListFooterComponent={() =>
+        loading ? <ActivityIndicator size="large" /> : null
+      }
     />
   );
 };
@@ -59,7 +83,7 @@ const LatestNewsList = () => {
 export default LatestNewsList;
 
 const styles = StyleSheet.create({
-  listCont: {gap: horizontalScale(25), paddingBottom: verticalScale(5)},
+  listCont: {gap: horizontalScale(15), paddingBottom: verticalScale(5)},
   itemCont: {
     flexDirection: 'row',
     borderRadius: 15,
@@ -69,7 +93,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.5,
     shadowRadius: 3,
-    elevation: 4,
+    elevation: 2,
     padding: horizontalScale(16),
     gap: horizontalScale(15),
   },

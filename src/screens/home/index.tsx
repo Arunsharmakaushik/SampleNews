@@ -1,6 +1,6 @@
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import React, {useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import ScreenWrapper from '../../components/wrapper/ScreenWrapper';
 import {DrawerStackParams} from '../../typings/route';
 import COLORS from '../../utils/COLORS';
@@ -21,12 +21,17 @@ const Home: React.FC<HomeProps> = ({}) => {
       StatusBarColor={COLORS.white}
       contentColor="dark-content"
       Styles={Styles.main}>
-      <CategoryList
-        category={selectedCategory}
-        setCategory={setSelectedCategory}
-      />
-      <NewsToday />
-      <LatestNews />
+      <ScrollView
+        contentContainerStyle={{
+          gap: verticalScale(15),
+        }}>
+        <CategoryList
+          category={selectedCategory}
+          setCategory={setSelectedCategory}
+        />
+        <NewsToday />
+        <LatestNews />
+      </ScrollView>
     </ScreenWrapper>
   );
 };
@@ -37,6 +42,5 @@ const Styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: COLORS.white,
-    gap: verticalScale(15),
   },
 });
