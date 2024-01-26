@@ -1,21 +1,21 @@
-import { DrawerNavigationProp } from '@react-navigation/drawer';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {
   DrawerActions,
   useNavigation,
-  useNavigationState
+  useNavigationState,
 } from '@react-navigation/native';
 import React from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { DrawerStackParams } from '../typings/route';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {DrawerStackParams} from '../typings/route';
 import {
   horizontalScale,
   responsiveFontSize,
-  verticalScale
+  verticalScale,
 } from '../utils/METRIC';
 
-import { heightPercentageToDP } from 'react-native-responsive-screen';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 import FONTS from '../assets/fonts/indec';
-import { BulbIcon, CloseIcon } from '../assets/icons';
+import {BulbIcon, CloseIcon} from '../assets/icons';
 import COLORS from '../utils/COLORS';
 
 type DrawerItems = {
@@ -38,7 +38,7 @@ export const DrwaerData: DrawerItems[] = [
   },
   {
     name: 'About',
-    route: 'About',
+    route: 'about',
   },
 ];
 
@@ -73,7 +73,7 @@ const DrawerContent = () => {
         style={styles.closeIcon}
         onPress={() => {
           navigation.closeDrawer();
-  
+
           // navigation.dispatch(DrawerActions.closeDrawer());
         }}>
         <CloseIcon height={25} width={25} />
