@@ -17,6 +17,7 @@ import DrawerContent from './DrawerContent';
 import HeadBar from '../components/headBar/HeadBar';
 import Search from '../screens/search';
 import NewsArticle from '../screens/newsArticle';
+import Profile from '../screens/profile';
 
 const RootStack = createNativeStackNavigator<RootStackParams>();
 const Auth = createNativeStackNavigator<AuthStackParams>();
@@ -37,18 +38,18 @@ function AuthStack() {
 const screenWithoutHeader: Array<keyof DrawerStackParams> = [
   'newsArticle',
   'search',
+  'profile',
 ];
 
 export const DrawerStack = () => {
   return (
     <Drawer.Navigator
       initialRouteName="home"
-      screenOptions={({navigation, route}) => ({
+      screenOptions={({route}) => ({
         headerShown: !screenWithoutHeader.includes(route.name),
-        header: () => (
+        header: ({navigation}) => (
           <HeadBar
             currentScreenName={route.name}
-            isBack={navigation.canGoBack()}
             onBackPress={() => {
               navigation.goBack();
             }}
@@ -56,16 +57,20 @@ export const DrawerStack = () => {
             onSearchIconPress={() => {
               navigation.navigate('search');
             }}
+            onProfilePress={() => navigation.navigate('profile')}
           />
         ),
       })}
-      drawerContent={() => <DrawerContent />}>
+      drawerContent={({navigation}) => (
+        <DrawerContent navigation={navigation} />
+      )}>
       <Drawer.Screen name="home" component={Home} />
       <Drawer.Screen name="categories" component={Categories} />
       <Drawer.Screen name="bookmarks" component={BookMarks} />
       <Drawer.Screen name="about" component={About} />
       <Drawer.Screen name="search" component={Search} />
       <Drawer.Screen name="newsArticle" component={NewsArticle} />
+      <Drawer.Screen name="profile" component={Profile} />
     </Drawer.Navigator>
   );
 };

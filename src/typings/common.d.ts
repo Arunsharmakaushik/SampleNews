@@ -16,3 +16,8 @@ export interface INewsData {
   category_id: string;
   published_at: string;
 }
+
+export interface IProfileBottomCard {
+  title: string;
+  icon: React.ReactNode;
+}

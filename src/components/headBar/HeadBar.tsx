@@ -14,6 +14,7 @@ interface IHeadBarProps {
   onLeftPress?: () => void;
   onMenuPress?: () => void;
   onSearchIconPress?: () => void;
+  onProfilePress?: () => void;
 }
 
 const HeadBar: React.FC<IHeadBarProps> = ({
@@ -21,6 +22,7 @@ const HeadBar: React.FC<IHeadBarProps> = ({
   onBackPress,
   onMenuPress,
   onSearchIconPress,
+  onProfilePress,
 }) => {
   return (
     <View style={Styles.main}>
@@ -38,7 +40,7 @@ const HeadBar: React.FC<IHeadBarProps> = ({
           <SearchIcon height={25} width={25} />
         </Pressable>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onProfilePress}>
           <Image
             source={require('../../assets/images/Ellipse.png')}
             style={Styles.profileImage}

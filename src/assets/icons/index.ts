@@ -19,6 +19,10 @@ import ShareIcon from './Share Icon.svg';
 import BookmarkIcon from './Bookmark Icon.svg';
 import BlueShareIcon from './Share Icon Blue.svg';
 import BlueBookmarkIcon from './Bookmark Icon Blue.svg';
+import BackIcon from './Back Icon.svg';
+import SettingsIcon from './Setting Icon.svg';
+import HelpIcon from './Help Icon.svg';
+import InfoIcon from './Info Icon.svg';
 
 export {
   CloseIcon,
@@ -42,4 +46,8 @@ export {
   ShareIcon,
   BlueShareIcon,
   BlueBookmarkIcon,
+  BackIcon,
+  SettingsIcon,
+  HelpIcon,
+  InfoIcon,
 };

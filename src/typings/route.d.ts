@@ -19,4 +19,5 @@ export type DrawerStackParams = {
   ourapp: undefined;
   search: undefined;
   newsArticle: undefined;
+  profile: undefined;
 };

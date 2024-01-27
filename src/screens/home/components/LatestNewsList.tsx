@@ -1,81 +1,111 @@
+import React, {useCallback, useMemo, useState} from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  Image,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
-import {Image} from 'react-native';
-import {INewsData} from '../../../typings/common';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
+import FONTS from '../../../assets/fonts/indec';
 import {NewsData} from '../../../seeds/NewsData';
+import {INewsData} from '../../../typings/common';
+import COLORS from '../../../utils/COLORS';
+import {getTimeDifference} from '../../../utils/Helpers';
 import {
   horizontalScale,
   responsiveFontSize,
   verticalScale,
 } from '../../../utils/METRIC';
-import {getTimeDifference} from '../../../utils/Helpers';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
-import COLORS from '../../../utils/COLORS';
-import FONTS from '../../../assets/fonts/indec';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {DrawerStackParams} from '../../../typings/route';
 
-const LatestNewsList = () => {
-  const keyExtractor = (item: INewsData, index: number) => item.title + index;
-  const [data, setData] = useState(NewsData);
-  const [loading, setLoading] = useState(false);
+const NewsListItem = React.memo(
+  ({item, onPress}: {item: INewsData; onPress: () => void}) => {
+    const timeDiff = getTimeDifference(item.published_at);
+    const categoryName =
+      item.category_id.charAt(0).toUpperCase() + item.category_id.slice(1);
 
-  const loadMoreData = async () => {
-    if (!loading) {
-      setLoading(true);
-      setTimeout(() => {
-        const newData = [...data, ...data.splice(0, 2)];
-        setData(newData);
-        setLoading(false);
-      }, 300);
-    }
-  };
-
-  const renderList = ({item}: {item: INewsData}) => {
     return (
-      <View style={styles.itemCont}>
+      <TouchableOpacity onPress={onPress} style={styles.itemCont}>
         <Image
-          source={{
-            uri: 'https://c.biztoc.com/p/290cf493be42d48a/og.webp',
-          }}
+          source={{uri: 'https://c.biztoc.com/p/290cf493be42d48a/og.webp'}}
           style={styles.imageCont}
         />
-
         <View style={styles.newsDetailCont}>
           <Text style={styles.heading}>
             News of marathon matches during this pandemic
           </Text>
           <View style={styles.categoryTimeCont}>
-            <Text style={styles.category}>
-              {item.category_id.charAt(0).toUpperCase() +
-                item.category_id.slice(1)}
-            </Text>
-            <Text>{getTimeDifference(item.published_at)}</Text>
+            <Text style={styles.category}>{categoryName}</Text>
+            <Text>{timeDiff}</Text>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
-  };
+  },
+);
+
+const LatestNewsList = ({
+  navigation,
+}: {
+  navigation: DrawerNavigationProp<DrawerStackParams>;
+}) => {
+  const [data, setData] = useState<INewsData[]>(NewsData);
+  const [loading, setLoading] = useState(false);
+
+  const loadMoreData = useCallback(async () => {
+    if (loading || data.length >= 15) return;
+
+    setLoading(true);
+
+    setTimeout(async () => {
+      setData(prevData => {
+        const availableSpace = 15 - prevData.length;
+        const itemsToAdd = NewsData.slice(0, availableSpace);
+
+        return [...prevData, ...itemsToAdd];
+      });
+
+      setLoading(false);
+    }, 3000);
+  }, [loading, data.length]);
+
+  const keyExtractor = useCallback(
+    (item: INewsData, index: number) => item.title.toString() + index,
+    [],
+  );
+
+  const renderItem = useCallback(
+    ({item}: {item: INewsData}) => (
+      <NewsListItem
+        item={item}
+        onPress={() => navigation.navigate('newsArticle')}
+      />
+    ),
+    [],
+  );
+
+  const footerComponent = useMemo(
+    () => (loading ? <ActivityIndicator size="large" /> : null),
+    [loading],
+  );
 
   return (
     <FlatList
       data={data}
-      renderItem={renderList}
+      renderItem={renderItem}
       keyExtractor={keyExtractor}
       contentContainerStyle={styles.listCont}
       showsVerticalScrollIndicator={false}
       onEndReached={loadMoreData}
-      onEndReachedThreshold={0.5} // Threshold for calling onEndReached
-      ListFooterComponent={() =>
-        loading ? <ActivityIndicator size="large" /> : null
-      }
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={footerComponent}
     />
   );
 };

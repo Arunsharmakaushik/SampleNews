@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import React, {FC, useCallback, useState} from 'react';
 import {
   horizontalScale,
   responsiveFontSize,
@@ -13,8 +13,14 @@ import {
 } from 'react-native-responsive-screen';
 import ThreeDotButton from '../../../components/buttons/ThreeDotButton';
 import LatestNewsList from './LatestNewsList';
+import {DrawerStackParams} from '../../../typings/route';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
 
-const LatestNews = () => {
+type LatestNewsProps = {
+  navigation: DrawerNavigationProp<DrawerStackParams>;
+};
+
+const LatestNews: FC<LatestNewsProps> = ({navigation}) => {
   const [isOptionMenu, setIsOptionMenu] = useState(false);
 
   const toggleOptionMenu = useCallback(() => {
@@ -38,7 +44,7 @@ const LatestNews = () => {
           menuStyles={styles.optionMenu}
         />
       </View>
-      <LatestNewsList />
+      <LatestNewsList navigation={navigation} />
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useCallback} from 'react';
 import {
   FlatList,
   Image,
@@ -27,13 +27,13 @@ type ISearchListProps = {
   onItemPress: () => void;
 };
 
+const ICON_SIZE = horizontalScale(30);
+
 const SearchedList: FC<ISearchListProps> = ({onItemPress}) => {
-  const keyExtractor = (item: INewsData, index: number) => item.title + index;
+  const keyExtractor = useCallback((item: INewsData) => item.title, []);
 
-  const renderRightActions = () => {
-    const ICON_SIZE = horizontalScale(30);
-
-    return (
+  const renderRightActions = useCallback(
+    () => (
       <View style={styles.rightActionsContainer}>
         <TouchableOpacity
           activeOpacity={0.8}
@@ -48,20 +48,22 @@ const SearchedList: FC<ISearchListProps> = ({onItemPress}) => {
           <ShareIcon style={{width: ICON_SIZE, height: ICON_SIZE}} />
         </TouchableOpacity>
       </View>
-    );
-  };
+    ),
+    [],
+  );
 
-  const renderItem = ({item}: {item: INewsData}) => {
-    return (
+  const renderItem = useCallback(
+    ({item}: {item: INewsData}) => (
       <Swipeable
         overshootRight={false}
         renderRightActions={renderRightActions}
         containerStyle={styles.swipeableCont}>
-        <TouchableOpacity onPress={onItemPress} style={styles.itemCont}>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={onItemPress}
+          style={styles.itemCont}>
           <Image
-            source={{
-              uri: 'https://c.biztoc.com/p/290cf493be42d48a/og.webp',
-            }}
+            source={{uri: 'https://c.biztoc.com/p/290cf493be42d48a/og.webp'}}
             style={styles.imageCont}
           />
           <View style={styles.newsDetailCont}>
@@ -69,8 +71,10 @@ const SearchedList: FC<ISearchListProps> = ({onItemPress}) => {
           </View>
         </TouchableOpacity>
       </Swipeable>
-    );
-  };
+    ),
+    [onItemPress, renderRightActions],
+  );
+
   return (
     <FlatList
       data={NewsData}

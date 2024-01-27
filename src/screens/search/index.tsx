@@ -1,4 +1,5 @@
-import React, {FC, useState} from 'react';
+import {DrawerScreenProps} from '@react-navigation/drawer';
+import React, {FC, useCallback, useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -8,7 +9,8 @@ import {
   View,
 } from 'react-native';
 import FONTS from '../../assets/fonts/indec';
-import {SearchIcon} from '../../assets/icons';
+import {BackIcon, SearchIcon} from '../../assets/icons';
+import {DrawerStackParams} from '../../typings/route';
 import COLORS from '../../utils/COLORS';
 import {
   horizontalScale,
@@ -17,8 +19,6 @@ import {
 } from '../../utils/METRIC';
 import RecentSearchBox from './components/RecentSearchBox';
 import SearchedList from './components/SearchedList';
-import {DrawerScreenProps} from '@react-navigation/drawer';
-import {DrawerStackParams} from '../../typings/route';
 
 type NewsArticleProps = DrawerScreenProps<DrawerStackParams, 'search'>;
 
@@ -26,23 +26,41 @@ const Search: FC<NewsArticleProps> = ({navigation}) => {
   const [searchWord, setSearchWord] = useState('');
   const [isSearched, setIsSearched] = useState(false);
 
+  const handleSearchPress = useCallback(() => setIsSearched(true), []);
+  const handleBackPress = useCallback(() => navigation.goBack(), [navigation]);
+  const handleSearchChange = useCallback(
+    (text: string) => setSearchWord(text),
+    [],
+  );
+  const handleRecentSearchPress = useCallback(() => setIsSearched(true), []);
+  const handleSearchedItemPress = useCallback(
+    () => navigation.navigate('newsArticle'),
+    [navigation],
+  );
+
   return (
     <ScrollView
       automaticallyAdjustKeyboardInsets
       contentContainerStyle={styles.scrollView}>
       <View style={styles.main}>
+        <View style={styles.headerCont}>
+          <TouchableOpacity onPress={handleBackPress}>
+            <BackIcon />
+          </TouchableOpacity>
+        </View>
         {!isSearched && (
           <Text style={styles.headerText}>Looking for something today?</Text>
         )}
-        <View style={styles.serchBar}>
+        <View style={styles.searchBar}>
           <TextInput
+            autoFocus
             value={searchWord}
-            onFocus={({}) => setIsSearched(false)}
-            onChangeText={text => setSearchWord(text)}
+            onFocus={() => handleSearchPress}
+            onChangeText={handleSearchChange}
             placeholder="Search for news"
             style={styles.inputBox}
           />
-          <TouchableOpacity onPress={() => setIsSearched(true)}>
+          <TouchableOpacity onPress={handleSearchPress}>
             <SearchIcon />
           </TouchableOpacity>
         </View>
@@ -53,11 +71,9 @@ const Search: FC<NewsArticleProps> = ({navigation}) => {
           </Text>
         )}
         {isSearched ? (
-          <SearchedList
-            onItemPress={() => navigation.navigate('newsArticle')}
-          />
+          <SearchedList onItemPress={handleSearchedItemPress} />
         ) : (
-          <RecentSearchBox onItemPress={() => setIsSearched(true)} />
+          <RecentSearchBox onItemPress={handleRecentSearchPress} />
         )}
       </View>
     </ScrollView>
@@ -77,13 +93,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(20),
     gap: verticalScale(15),
   },
+  headerCont: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
   headerText: {
     fontFamily: FONTS.bold,
     fontSize: responsiveFontSize(25),
     color: COLORS.black,
     paddingRight: horizontalScale(60),
   },
-  serchBar: {
+  searchBar: {
     flexDirection: 'row',
     backgroundColor: COLORS.lightGrey,
     alignItems: 'center',

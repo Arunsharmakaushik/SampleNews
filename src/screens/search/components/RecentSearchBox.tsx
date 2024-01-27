@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useCallback} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import FONTS from '../../../assets/fonts/indec';
 import {GoToIcon, LinkIcon} from '../../../assets/icons';
@@ -9,22 +9,23 @@ import {
   verticalScale,
 } from '../../../utils/METRIC';
 
-type IRecentSerchProps = {
+type IRecentSearchProps = {
   onItemPress: () => void;
 };
 
-const RecentSearchBox: FC<IRecentSerchProps> = ({onItemPress}) => {
-  const keyExtractor = (item: string, index: number) => item + index;
-
-  const renderItem = ({item}: {item: string}) => {
-    return (
+const RecentSearchBox: FC<IRecentSearchProps> = ({onItemPress}) => {
+  const renderItem = useCallback(
+    ({item}: {item: string}) => (
       <TouchableOpacity onPress={onItemPress} style={styles.itemCont}>
         <LinkIcon />
         <Text style={styles.itemText}>{item}</Text>
         <GoToIcon />
       </TouchableOpacity>
-    );
-  };
+    ),
+    [onItemPress],
+  );
+
+  const keyExtractor = useCallback((item: string) => item, []);
 
   return (
     <View style={styles.main}>

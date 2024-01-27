@@ -1,29 +1,36 @@
-import React from 'react';
+import {DrawerScreenProps} from '@react-navigation/drawer';
+import React, {FC} from 'react';
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
-import {BlueBookmarkIcon, BlueShareIcon} from '../../assets/icons';
+import FONTS from '../../assets/fonts/indec';
+import {BackIcon, BlueBookmarkIcon, BlueShareIcon} from '../../assets/icons';
+import {DrawerStackParams} from '../../typings/route';
 import COLORS from '../../utils/COLORS';
 import {
   horizontalScale,
   responsiveFontSize,
   verticalScale,
 } from '../../utils/METRIC';
-import FONTS from '../../assets/fonts/indec';
 
-const NewsArticle = () => {
+type NewsArticleProps = DrawerScreenProps<DrawerStackParams, 'newsArticle'>;
+
+const NewsArticle: FC<NewsArticleProps> = ({navigation}) => {
   return (
-    <ScrollView style={styles.scrollCont}>
-      <View style={styles.main}>
+    <ScrollView style={styles.scrollContainer}>
+      <View style={styles.headerCont}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <BackIcon />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.mainContainer}>
         <Image
-          source={{
-            uri: 'https://c.biztoc.com/p/290cf493be42d48a/og.webp',
-          }}
-          style={styles.imageCont}
+          source={{uri: 'https://c.biztoc.com/p/290cf493be42d48a/og.webp'}}
+          style={styles.imageContainer}
         />
-        <View style={styles.utilsCont}>
+        <View style={styles.utilsContainer}>
           <Text style={styles.categoryText}>Sports</Text>
-          <View style={styles.actionCont}>
+          <View style={styles.actionContainer}>
             <TouchableOpacity>
               <BlueShareIcon />
             </TouchableOpacity>
@@ -39,29 +46,28 @@ const NewsArticle = () => {
           Football New Pandemic-Related Rules for 2021
         </Text>
         <Text style={styles.paraText}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt
-          expedita eius, cum sint quaerat culpa, dolore non quas voluptatem
-          dolor voluptates natus voluptate fuga ipsa autem facere dignissimos,
-          nihil adipisci distinctio minima amet delectus aliquam. Facilis
-          officia, quas in magnam autem pariatur repudiandae ullam similique
-          nesciunt natus, obcaecati rerum minus suscipit nihil unde officiis.
-          Incidunt obcaecati maxime minima nesciunt saepe et, in illo reiciendis
-          quasi explicabo accusantium quaerat, praesentium facere quisquam
-          cumque sunt hic blanditiis, amet fugit ipsa? Quo blanditiis facilis
-          minus! Exercitationem deserunt cumque fuga accusantium voluptatum
-          incidunt culpa ex vitae dolore corrupti ut quae ipsum itaque quasi
-          quos, aliquid totam fugit odio in sequi iusto molestiae libero
-          nostrum. Necessitatibus, repellendus! Perspiciatis officiis dolorum
-          saepe veniam, quas asperiores rem cum illum nemo libero accusantium
-          voluptas nihil voluptatum deserunt vel delectus dignissimos, iusto
-          ullam nobis qui ratione. Voluptatem, soluta esse obcaecati maiores,
-          eaque assumenda labore porro, quod non suscipit incidunt odit
-          perferendis numquam quia odio quo corrupti sint voluptate nemo eum
-          deserunt? Nobis consectetur inventore ex ipsum ratione reprehenderit
-          quis facere molestiae deserunt quibusdam. Perferendis modi beatae
-          consequuntur, deleniti eius ipsam ipsa possimus nulla. Voluptatibus
-          vitae commodi, excepturi laborum quas, sapiente aspernatur harum illo
-          debitis a consequuntur beatae! Exercitationem, quam.
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta esse
+          odit et sint enim maxime labore omnis quaerat vitae nihil ut aliquam,
+          eos amet natus distinctio alias expedita laboriosam neque eveniet, quo
+          libero cupiditate. In, assumenda laudantium est natus consequuntur id.
+          Iure, quos. Aperiam reprehenderit inventore dolores sequi nemo
+          voluptatibus fuga veritatis magni quam, architecto est voluptas
+          repudiandae quaerat iusto, minus placeat quasi iure. Voluptatem
+          nostrum eaque commodi, doloribus ad quam quasi nemo unde molestias
+          esse eveniet facere tempore ipsam, itaque blanditiis sed illo iure
+          repellendus rem. Possimus autem consequatur quos doloremque fugit
+          perspiciatis recusandae laborum eaque est id! Autem dolores possimus
+          dicta velit dolorem placeat voluptatem ipsam! Blanditiis nobis animi
+          dolorum a illo iste corporis explicabo nam aperiam facere sunt ipsam
+          eaque atque qui repudiandae quas, provident iure quo, eius cupiditate
+          dignissimos quod maiores nostrum consectetur. Obcaecati natus ut
+          beatae consequuntur quo asperiores, illo vitae tempore necessitatibus
+          accusamus culpa aspernatur ipsum incidunt aut dolor ea, molestiae
+          mollitia cum adipisci ipsam in reiciendis! Quas deleniti, nisi modi,
+          beatae reprehenderit culpa odio non dolorum rem alias eius. Hic
+          accusamus earum, porro sunt possimus, vitae voluptatum vero sit omnis
+          tempora suscipit necessitatibus at assumenda quaerat sed commodi
+          blanditiis reiciendis, cupiditate modi nulla.{' '}
         </Text>
       </View>
     </ScrollView>
@@ -71,8 +77,8 @@ const NewsArticle = () => {
 export default NewsArticle;
 
 const styles = StyleSheet.create({
-  scrollCont: {flex: 1},
-  main: {
+  scrollContainer: {flex: 1},
+  mainContainer: {
     flex: 1,
     backgroundColor: COLORS.white,
     paddingVertical: verticalScale(10),
@@ -80,22 +86,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: verticalScale(10),
   },
-  imageCont: {
+  headerCont: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: horizontalScale(15),
+    backgroundColor: COLORS.white,
+  },
+  imageContainer: {
     height: heightPercentageToDP(35),
     width: '100%',
     resizeMode: 'contain',
     borderRadius: 10,
+    borderWidth: 2,
   },
-
-  utilsCont: {
+  utilsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
+    paddingTop: verticalScale(10),
   },
-  actionCont: {
+  actionContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     gap: horizontalScale(20),
   },

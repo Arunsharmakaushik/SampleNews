@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
 } from 'react-native';
 import {
   heightPercentageToDP,
@@ -17,40 +16,27 @@ import {NewsData} from '../../../seeds/NewsData';
 import {INewsData} from '../../../typings/common';
 import {DrawerStackParams} from '../../../typings/route';
 import COLORS from '../../../utils/COLORS';
-import {getTimeDifference} from '../../../utils/Helpers';
 import {
   horizontalScale,
   responsiveFontSize,
   verticalScale,
 } from '../../../utils/METRIC';
 
-const NewsItem = React.memo(
+const BookMarkedItem = React.memo(
   ({item, onPress}: {item: INewsData; onPress: () => void}) => {
-    const timeDiff = getTimeDifference(item.published_at);
-    const categoryName =
-      item.category_id.charAt(0).toUpperCase() + item.category_id.slice(1);
-
     return (
       <TouchableOpacity onPress={onPress} style={styles.itemCont}>
         <ImageBackground
           source={{uri: 'https://c.biztoc.com/p/290cf493be42d48a/og.webp'}}
           style={styles.imageCont}
         />
-        <View style={styles.newsDetailCont}>
-          <Text style={styles.category}>
-            <View style={styles.blueDot} /> {categoryName}
-          </Text>
-          <Text>{timeDiff}</Text>
-        </View>
-        <Text style={styles.heading}>
-          News of marathon matches during this pandemic
-        </Text>
+        <Text style={styles.heading}>{item.title}</Text>
       </TouchableOpacity>
     );
   },
 );
 
-const NewsTodayList = ({
+const BookmarkedList = ({
   navigation,
 }: {
   navigation: DrawerNavigationProp<DrawerStackParams>;
@@ -61,7 +47,10 @@ const NewsTodayList = ({
   );
 
   const renderItem = ({item}: {item: INewsData}) => (
-    <NewsItem item={item} onPress={() => navigation.navigate('newsArticle')} />
+    <BookMarkedItem
+      item={item}
+      onPress={() => navigation.navigate('newsArticle')}
+    />
   );
 
   return (
@@ -76,10 +65,13 @@ const NewsTodayList = ({
   );
 };
 
-export default NewsTodayList;
+export default BookmarkedList;
 
 const styles = StyleSheet.create({
-  listCont: {gap: horizontalScale(25), paddingBottom: verticalScale(5)},
+  listCont: {
+    gap: horizontalScale(25),
+    paddingBottom: verticalScale(5),
+  },
   itemCont: {
     borderRadius: 15,
     overflow: 'hidden',
@@ -92,8 +84,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   imageCont: {
-    height: heightPercentageToDP(24),
-    width: widthPercentageToDP(90),
+    height: heightPercentageToDP(20),
     resizeMode: 'cover',
     paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(10),
