@@ -1,26 +1,28 @@
+import {DrawerNavigationProp} from '@react-navigation/drawer';
 import React, {FC, useCallback, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 import FONTS from '../../../assets/fonts/indec';
 import ThreeDotButton from '../../../components/buttons/ThreeDotButton';
+import {INewsData} from '../../../typings/common';
+import {DrawerStackParams} from '../../../typings/route';
 import COLORS from '../../../utils/COLORS';
 import {
   horizontalScale,
   responsiveFontSize,
   verticalScale,
 } from '../../../utils/METRIC';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
 import NewsTodayList from './NewsTodayList';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
-import {DrawerStackParams} from '../../../typings/route';
 
 type NewsTodayProps = {
   navigation: DrawerNavigationProp<DrawerStackParams>;
+  articles: INewsData[];
 };
 
-const NewsToday: FC<NewsTodayProps> = ({navigation}) => {
+const NewsToday: FC<NewsTodayProps> = ({navigation, articles}) => {
   const [isOptionMenu, setIsOptionMenu] = useState(false);
 
   const toggleOptionMenu = useCallback(() => {
@@ -44,7 +46,7 @@ const NewsToday: FC<NewsTodayProps> = ({navigation}) => {
           menuStyles={styles.optionMenu}
         />
       </View>
-      <NewsTodayList navigation={navigation} />
+      <NewsTodayList navigation={navigation} articles={articles} />
     </View>
   );
 };

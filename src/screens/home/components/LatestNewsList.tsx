@@ -1,3 +1,4 @@
+import {DrawerNavigationProp} from '@react-navigation/drawer';
 import React, {useCallback, useMemo, useState} from 'react';
 import {
   ActivityIndicator,
@@ -15,6 +16,7 @@ import {
 import FONTS from '../../../assets/fonts/indec';
 import {NewsData} from '../../../seeds/NewsData';
 import {INewsData} from '../../../typings/common';
+import {DrawerStackParams} from '../../../typings/route';
 import COLORS from '../../../utils/COLORS';
 import {getTimeDifference} from '../../../utils/Helpers';
 import {
@@ -22,8 +24,6 @@ import {
   responsiveFontSize,
   verticalScale,
 } from '../../../utils/METRIC';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
-import {DrawerStackParams} from '../../../typings/route';
 
 const NewsListItem = React.memo(
   ({item, onPress}: {item: INewsData; onPress: () => void}) => {
@@ -34,13 +34,14 @@ const NewsListItem = React.memo(
     return (
       <TouchableOpacity onPress={onPress} style={styles.itemCont}>
         <Image
-          source={{uri: 'https://c.biztoc.com/p/290cf493be42d48a/og.webp'}}
+          source={{
+            uri:
+              item.image || 'https://c.biztoc.com/p/290cf493be42d48a/og.webp',
+          }}
           style={styles.imageCont}
         />
         <View style={styles.newsDetailCont}>
-          <Text style={styles.heading}>
-            News of marathon matches during this pandemic
-          </Text>
+          <Text style={styles.heading}>{item.title}</Text>
           <View style={styles.categoryTimeCont}>
             <Text style={styles.category}>{categoryName}</Text>
             <Text>{timeDiff}</Text>
@@ -53,10 +54,12 @@ const NewsListItem = React.memo(
 
 const LatestNewsList = ({
   navigation,
+  latestArticles,
 }: {
   navigation: DrawerNavigationProp<DrawerStackParams>;
+  latestArticles: INewsData[];
 }) => {
-  const [data, setData] = useState<INewsData[]>(NewsData);
+  const [data, setData] = useState<INewsData[]>(latestArticles);
   const [loading, setLoading] = useState(false);
 
   const loadMoreData = useCallback(async () => {

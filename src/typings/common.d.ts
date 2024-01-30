@@ -21,3 +21,9 @@ export interface IProfileBottomCard {
   title: string;
   icon: React.ReactNode;
 }
+
+export interface ICategoryListData {
+  _id: string;
+  category_name: string;
+  __v: number;
+}

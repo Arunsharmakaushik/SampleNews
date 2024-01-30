@@ -13,7 +13,6 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import FONTS from '../../../assets/fonts/indec';
-import {NewsData} from '../../../seeds/NewsData';
 import {INewsData} from '../../../typings/common';
 import {DrawerStackParams} from '../../../typings/route';
 import COLORS from '../../../utils/COLORS';
@@ -33,7 +32,10 @@ const NewsItem = React.memo(
     return (
       <TouchableOpacity onPress={onPress} style={styles.itemCont}>
         <ImageBackground
-          source={{uri: 'https://c.biztoc.com/p/290cf493be42d48a/og.webp'}}
+          source={{
+            uri:
+              item.image || 'https://c.biztoc.com/p/290cf493be42d48a/og.webp',
+          }}
           style={styles.imageCont}
         />
         <View style={styles.newsDetailCont}>
@@ -42,9 +44,7 @@ const NewsItem = React.memo(
           </Text>
           <Text>{timeDiff}</Text>
         </View>
-        <Text style={styles.heading}>
-          News of marathon matches during this pandemic
-        </Text>
+        <Text style={styles.heading}>{item.title}</Text>
       </TouchableOpacity>
     );
   },
@@ -52,8 +52,10 @@ const NewsItem = React.memo(
 
 const NewsTodayList = ({
   navigation,
+  articles,
 }: {
   navigation: DrawerNavigationProp<DrawerStackParams>;
+  articles: INewsData[];
 }) => {
   const keyExtractor = React.useCallback(
     (item: INewsData, index: number) => `${item.title + index}`,
@@ -66,7 +68,7 @@ const NewsTodayList = ({
 
   return (
     <FlatList
-      data={NewsData}
+      data={articles}
       renderItem={renderItem}
       keyExtractor={keyExtractor}
       horizontal
