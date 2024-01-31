@@ -1,22 +1,18 @@
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import {
-  DrawerActions,
-  useNavigation,
-  useNavigationState
-} from '@react-navigation/native';
-import React from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { DrawerStackParams } from '../typings/route';
+import {useNavigationState} from '@react-navigation/native';
+import React, {FC} from 'react';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {DrawerStackParams} from '../typings/route';
 import {
   horizontalScale,
   responsiveFontSize,
-  verticalScale
+  verticalScale,
 } from '../utils/METRIC';
 
-import { heightPercentageToDP } from 'react-native-responsive-screen';
+import {DrawerNavigationHelpers} from '@react-navigation/drawer/lib/typescript/src/types';
 import FONTS from '../assets/fonts/indec';
-import { BulbIcon, CloseIcon } from '../assets/icons';
+import {BulbIcon, CloseIcon} from '../assets/icons';
 import COLORS from '../utils/COLORS';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 type DrawerItems = {
   name: string;
@@ -38,12 +34,15 @@ export const DrwaerData: DrawerItems[] = [
   },
   {
     name: 'About',
-    route: 'About',
+    route: 'about',
   },
 ];
 
-const DrawerContent = () => {
-  const navigation = useNavigation<DrawerNavigationProp<DrawerStackParams>>();
+type IDrawerContentProps = {
+  navigation: DrawerNavigationHelpers;
+};
+
+const DrawerContent: FC<IDrawerContentProps> = ({navigation}) => {
   const navState = useNavigationState(state => state);
   const currentRoute =
     navState.routes[0].state?.routeNames![navState.routes[0].state?.index ?? 0];
@@ -53,6 +52,7 @@ const DrawerContent = () => {
 
     return (
       <TouchableOpacity
+        key={item.name}
         onPress={() => {
           navigation.navigate(item.route);
         }}
@@ -70,11 +70,8 @@ const DrawerContent = () => {
   return (
     <View style={styles.mainCont}>
       <TouchableOpacity
-        style={styles.closeIcon}
         onPress={() => {
-          navigation.closeDrawer();
-  
-          // navigation.dispatch(DrawerActions.closeDrawer());
+          navigation.toggleDrawer();
         }}>
         <CloseIcon height={25} width={25} />
       </TouchableOpacity>
@@ -85,9 +82,8 @@ const DrawerContent = () => {
         contentContainerStyle={styles.drawerItemListCont}
       />
       <TouchableOpacity
-        style={styles.bulbIcon}
         onPress={() => {
-          navigation.dispatch(DrawerActions.closeDrawer());
+          navigation.closeDrawer();
         }}>
         <BulbIcon height={25} width={25} />
       </TouchableOpacity>
@@ -101,26 +97,16 @@ const styles = StyleSheet.create({
   mainCont: {
     flex: 1,
     paddingLeft: horizontalScale(25),
-    paddingVertical: verticalScale(10),
+    paddingTop: heightPercentageToDP(10),
+    paddingBottom: heightPercentageToDP(5),
     justifyContent: 'center',
-  },
-  closeIcon: {
-    position: 'absolute',
-    zIndex: 10,
-    top: heightPercentageToDP(10),
-    left: horizontalScale(25),
-  },
-  bulbIcon: {
-    position: 'absolute',
-    bottom: heightPercentageToDP(3),
-    left: horizontalScale(25),
   },
   drawerHeadText: {
     fontSize: responsiveFontSize(20),
   },
   drawerItemListCont: {
     flex: 1,
-    justifyContent: 'center',
+    paddingTop: heightPercentageToDP(5),
   },
   drawerItems: {marginVertical: verticalScale(10)},
   drawerItemText: {

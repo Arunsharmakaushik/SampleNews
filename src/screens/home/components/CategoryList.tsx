@@ -38,27 +38,21 @@ const CategoryList: FC<ICategoryListProps> = ({category, setCategory}) => {
   };
 
   return (
-    <View style={styles.main}>
-      <FlatList
-        data={CategoryType}
-        renderItem={renderList}
-        keyExtractor={keyExtractor}
-        horizontal
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.listCont}
-        showsHorizontalScrollIndicator
-      />
-    </View>
+    <FlatList
+      data={CategoryType}
+      renderItem={renderList}
+      keyExtractor={keyExtractor}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.listCont}
+    />
   );
 };
 
 export default CategoryList;
 
 const styles = StyleSheet.create({
-  main: {
-    paddingHorizontal: horizontalScale(15),
-  },
-  listCont: {gap: horizontalScale(25)},
+  listCont: {gap: horizontalScale(25), paddingHorizontal: horizontalScale(15)},
   listItem: {
     flex: 1,
     alignItems: 'center',

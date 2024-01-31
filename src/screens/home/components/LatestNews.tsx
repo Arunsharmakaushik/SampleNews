@@ -1,20 +1,28 @@
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import React, {FC, useCallback, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
+import FONTS from '../../../assets/fonts/indec';
+import ThreeDotButton from '../../../components/buttons/ThreeDotButton';
+import {INewsData} from '../../../typings/common';
+import {DrawerStackParams} from '../../../typings/route';
+import COLORS from '../../../utils/COLORS';
 import {
   horizontalScale,
   responsiveFontSize,
   verticalScale,
 } from '../../../utils/METRIC';
-import FONTS from '../../../assets/fonts/indec';
-import COLORS from '../../../utils/COLORS';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
-import ThreeDotButton from '../../../components/buttons/ThreeDotButton';
 import LatestNewsList from './LatestNewsList';
 
-const LatestNews = () => {
+type LatestNewsProps = {
+  navigation: DrawerNavigationProp<DrawerStackParams>;
+  articles: INewsData[];
+};
+
+const LatestNews: FC<LatestNewsProps> = ({navigation, articles}) => {
   const [isOptionMenu, setIsOptionMenu] = useState(false);
 
   const toggleOptionMenu = useCallback(() => {
@@ -38,7 +46,7 @@ const LatestNews = () => {
           menuStyles={styles.optionMenu}
         />
       </View>
-      <LatestNewsList />
+      <LatestNewsList navigation={navigation} latestArticles={articles} />
     </View>
   );
 };

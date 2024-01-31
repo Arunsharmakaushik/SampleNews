@@ -1,42 +1,99 @@
 import {DrawerScreenProps} from '@react-navigation/drawer';
-import React, {useState} from 'react';
-import {StyleSheet} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native';
 import ScreenWrapper from '../../components/wrapper/ScreenWrapper';
+import {Categories, INewsData} from '../../typings/common';
 import {DrawerStackParams} from '../../typings/route';
 import COLORS from '../../utils/COLORS';
-import CategoryList from './components/CategoryList';
-import {Categories} from '../../typings/common';
-import NewsToday from './components/NewsToday';
 import {verticalScale} from '../../utils/METRIC';
+import CategoryList from './components/CategoryList';
 import LatestNews from './components/LatestNews';
+import NewsToday from './components/NewsToday';
 
 type HomeProps = DrawerScreenProps<DrawerStackParams, 'home'>;
 
-const Home: React.FC<HomeProps> = ({}) => {
+const Home: React.FC<HomeProps> = ({navigation}) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [articles, setArticles] = useState([]);
   const [selectedCategory, setSelectedCategory] =
     useState<Categories>('Sports');
+
+  const MemoizedCategoryList = React.memo(() => (
+    <CategoryList
+      category={selectedCategory}
+      setCategory={setSelectedCategory}
+    />
+  ));
+  const MemoizedNewsToday = React.memo(() => (
+    <NewsToday navigation={navigation} articles={articles} />
+  ));
+  const MemoizedLatestNews = React.memo(() => (
+    <LatestNews
+      navigation={navigation}
+      articles={filterNewsByToday(articles)}
+    />
+  ));
+
+  const filterNewsByToday = (data: INewsData[]) => {
+    const currentTime = new Date();
+
+    const twentyFourHoursAgo = new Date(
+      currentTime.getTime() - 24 * 60 * 60 * 1000,
+    );
+
+    return data.filter(item => {
+      const publishedDate = new Date(item.published_at);
+      return publishedDate >= twentyFourHoursAgo;
+    });
+  };
+
+  useEffect(() => {
+    let isCurrent = true;
+    setIsLoading(true);
+    fetch('https://news-node-beta.vercel.app/api/article')
+      .then(res => res.json())
+      .then(res => {
+        if (isCurrent) {
+          setArticles(res);
+        }
+      })
+      .finally(() => setIsLoading(false));
+
+    return () => {
+      isCurrent = false;
+    };
+  }, []);
+
+  if (isLoading)
+    return (
+      <View style={styles.loadingCont}>
+        <ActivityIndicator size="large" color={COLORS.blue} />
+      </View>
+    );
 
   return (
     <ScreenWrapper
       StatusBarColor={COLORS.white}
       contentColor="dark-content"
-      Styles={Styles.main}>
-      <CategoryList
-        category={selectedCategory}
-        setCategory={setSelectedCategory}
-      />
-      <NewsToday />
-      <LatestNews />
+      Styles={styles.main}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <MemoizedCategoryList />
+        <MemoizedNewsToday />
+        <MemoizedLatestNews />
+      </ScrollView>
     </ScreenWrapper>
   );
 };
 
 export default Home;
 
-const Styles = StyleSheet.create({
+const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: COLORS.white,
+  },
+  scrollView: {
     gap: verticalScale(15),
   },
+  loadingCont: {flex: 1, justifyContent: 'center', alignItems: 'center'},
 });

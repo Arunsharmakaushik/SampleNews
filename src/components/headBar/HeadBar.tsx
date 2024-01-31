@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {Image, Pressable, TouchableOpacity, View} from 'react-native';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import {MenuIcon, SearchIcon} from '../../assets/icons';
 import Styles from './Styles';
@@ -13,12 +13,16 @@ interface IHeadBarProps {
   isLeftView?: boolean;
   onLeftPress?: () => void;
   onMenuPress?: () => void;
+  onSearchIconPress?: () => void;
+  onProfilePress?: () => void;
 }
 
 const HeadBar: React.FC<IHeadBarProps> = ({
   isBack,
   onBackPress,
   onMenuPress,
+  onSearchIconPress,
+  onProfilePress,
 }) => {
   return (
     <View style={Styles.main}>
@@ -28,12 +32,15 @@ const HeadBar: React.FC<IHeadBarProps> = ({
         </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={onMenuPress}>
-          <MenuIcon height={15} width={15} />
+          <MenuIcon height={20} width={20} />
         </TouchableOpacity>
       )}
       <View style={Styles.profileandSearchCont}>
-        <SearchIcon height={25} width={25} />
-        <TouchableOpacity>
+        <Pressable onPress={onSearchIconPress}>
+          <SearchIcon height={25} width={25} />
+        </Pressable>
+
+        <TouchableOpacity onPress={onProfilePress}>
           <Image
             source={require('../../assets/images/Ellipse.png')}
             style={Styles.profileImage}

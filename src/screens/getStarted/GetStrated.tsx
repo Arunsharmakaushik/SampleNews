@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   btn: {
     paddingHorizontal: horizontalScale(50),
     paddingVertical: verticalScale(18),
-    backgroundColor: COLORS.lightBlue,
+    backgroundColor: COLORS.blue,
     borderRadius: 10,
   },
   btnText: {

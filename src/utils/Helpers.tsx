@@ -17,3 +17,25 @@ export const getTimeDifference = (inputDateString: string) => {
     return `${date}-${month}-${year}`;
   }
 };
+
+export function formatDateCustom(dateString: string | number | Date) {
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  return `${month}. ${day}, ${year}`;
+}

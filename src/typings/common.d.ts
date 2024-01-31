@@ -7,6 +7,7 @@ export type ICategoryType = {
 };
 
 export interface INewsData {
+  _id: string;
   title: string;
   description: string;
   url: string;
@@ -15,4 +16,15 @@ export interface INewsData {
   language_id: string;
   category_id: string;
   published_at: string;
+}
+
+export interface IProfileBottomCard {
+  title: string;
+  icon: React.ReactNode;
+}
+
+export interface ICategoryListData {
+  _id: string;
+  category_name: string;
+  __v: number;
 }
