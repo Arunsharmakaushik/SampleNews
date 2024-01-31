@@ -11,31 +11,35 @@ configureObservablePersistence({
 });
 
 interface Storage {
-  //   authenticated?: boolean;
-  //   token?: string;
+  bookmarks?: string[];
   isOnboarded: boolean;
   // getters
-  //   getAuthenticated: () => boolean | undefined;
-  //   getToken: () => string | undefined;
+  getBookmarks: () => string[] | undefined;
   getIsOnBoarded: () => boolean | undefined;
   // setters
-  //   setAuthenticated: (authenticated: boolean) => void;
-  //   setToken: (token: string) => void;
+  setBookmarks: (id: string) => void;
   setIsOnBoarded: (isOnboarded: boolean) => void;
+  updateBookmarks: (updatedBookmarks: string[]) => void;
 }
 
 export const storage = observable<Storage>({
-  //   authenticated: false,
-  //   token: '',``
+  bookmarks: [],
   isOnboarded: false,
+
   // getters
-  //   getAuthenticated: () => storage.authenticated?.get(),
-  //   getToken: () => storage.token?.get(),
+  getBookmarks: () => storage.bookmarks.get(),
   getIsOnBoarded: () => storage.isOnboarded?.get(),
+
   // setters
   //   setAuthenticated: (authenticated: boolean) =>
   //     storage.authenticated?.set?.(authenticated),
   //   setToken: (token: string) => storage.token?.set?.(token),
+  setBookmarks: (id: string) => {
+    storage.bookmarks.set([...storage.bookmarks.get(), id]);
+  },
+  updateBookmarks: (updatedBookmarks: string[]) => {
+    storage.bookmarks.set(updatedBookmarks);
+  },
   setIsOnBoarded: (isOnboarded: boolean) =>
     storage.isOnboarded?.set?.(isOnboarded),
 }) as ObservableObject<Storage>;

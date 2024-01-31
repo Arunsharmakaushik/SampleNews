@@ -24,7 +24,6 @@ type LatestNewsProps = {
 
 const LatestNews: FC<LatestNewsProps> = ({navigation, articles}) => {
   const [isOptionMenu, setIsOptionMenu] = useState(false);
-  console.log(articles);
 
   const toggleOptionMenu = useCallback(() => {
     setIsOptionMenu(prevState => !prevState);

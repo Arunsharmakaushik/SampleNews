@@ -1,74 +1,134 @@
 import {DrawerScreenProps} from '@react-navigation/drawer';
-import React, {FC} from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {FC, useEffect, useMemo, useState} from 'react';
+import {
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
+import IonIcons from 'react-native-vector-icons/Ionicons';
 import FONTS from '../../assets/fonts/indec';
 import {BackIcon, BlueBookmarkIcon, BlueShareIcon} from '../../assets/icons';
+import {INewsData} from '../../typings/common';
 import {DrawerStackParams} from '../../typings/route';
 import COLORS from '../../utils/COLORS';
+import {formatDateCustom} from '../../utils/Helpers';
 import {
   horizontalScale,
   responsiveFontSize,
   verticalScale,
 } from '../../utils/METRIC';
+import {storage} from '../../utils/Storage';
 
-type NewsArticleProps = DrawerScreenProps<DrawerStackParams, 'newsArticle'>;
+const ArticleHeader = React.memo(({onPressBack}: {onPressBack: () => void}) => (
+  <View style={styles.headerCont}>
+    <TouchableOpacity onPress={onPressBack}>
+      <BackIcon />
+    </TouchableOpacity>
+  </View>
+));
 
-const NewsArticle: FC<NewsArticleProps> = ({navigation}) => {
+const NewsArticle: FC<DrawerScreenProps<DrawerStackParams, 'newsArticle'>> = ({
+  navigation,
+  route,
+}) => {
+  const {id} = route.params;
+  const [articleData, setArticleData] = useState<INewsData | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const fetchArticleData = async () => {
+    setIsLoading(true);
+    fetch(`https://news-node-beta.vercel.app/api/article/${id}`)
+      .then(res => res.json())
+      .then(res => setArticleData(res))
+      .catch(() => {
+        setError('No Data Available');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchArticleData();
+    return () => {
+      setArticleData(null);
+    };
+  }, [id]);
+
+  const handleToggleBookmark = () => {
+    if (storage.getBookmarks()?.includes(id)) {
+      const updatedBookmarks = storage
+        .getBookmarks()
+        ?.filter(bookmarkId => bookmarkId !== id);
+      console.log(updatedBookmarks);
+
+      storage.updateBookmarks(updatedBookmarks!);
+    } else {
+      console.log(id);
+      storage.setBookmarks(id);
+    }
+  };
+
+  const isBookmarked = useMemo(
+    () => storage.getBookmarks()?.includes(id),
+    [storage.getBookmarks()],
+  );
+
+  const renderBookmarkIcon = useMemo(() => {
+    return (
+      <TouchableOpacity onPress={handleToggleBookmark}>
+        {isBookmarked ? (
+          <IonIcons name="bookmark" color={COLORS.blue} size={25} />
+        ) : (
+          <BlueBookmarkIcon />
+        )}
+      </TouchableOpacity>
+    );
+  }, [isBookmarked]);
+
+  if (isLoading)
+    return (
+      <View style={styles.loadingCont}>
+        <ActivityIndicator size="large" color={COLORS.blue} />
+      </View>
+    );
+
+  if (error) return <Text>{error}</Text>;
+
   return (
     <ScrollView style={styles.scrollContainer}>
-      <View style={styles.headerCont}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <BackIcon />
-        </TouchableOpacity>
-      </View>
+      <ArticleHeader onPressBack={() => navigation.goBack()} />
       <View style={styles.mainContainer}>
         <Image
-          source={{uri: 'https://c.biztoc.com/p/290cf493be42d48a/og.webp'}}
+          source={{
+            uri:
+              articleData?.image ||
+              'https://c.biztoc.com/p/290cf493be42d48a/og.webp',
+          }}
           style={styles.imageContainer}
         />
         <View style={styles.utilsContainer}>
-          <Text style={styles.categoryText}>Sports</Text>
+          <Text style={styles.categoryText}>{articleData?.category_id}</Text>
           <View style={styles.actionContainer}>
             <TouchableOpacity>
               <BlueShareIcon />
             </TouchableOpacity>
-            <TouchableOpacity>
-              <BlueBookmarkIcon />
-            </TouchableOpacity>
+            {renderBookmarkIcon}
           </View>
         </View>
-        <Text style={styles.headerText}>
-          Football New Pandemic-Related Rules for 2021
-        </Text>
+        <Text style={styles.headerText}>{articleData?.title}</Text>
         <Text style={styles.subHeaderText}>
-          Football New Pandemic-Related Rules for 2021
+          {articleData?.author && `By ${articleData.author}-`}
+          {articleData?.published_at &&
+            formatDateCustom(articleData.published_at)}
         </Text>
-        <Text style={styles.paraText}>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta esse
-          odit et sint enim maxime labore omnis quaerat vitae nihil ut aliquam,
-          eos amet natus distinctio alias expedita laboriosam neque eveniet, quo
-          libero cupiditate. In, assumenda laudantium est natus consequuntur id.
-          Iure, quos. Aperiam reprehenderit inventore dolores sequi nemo
-          voluptatibus fuga veritatis magni quam, architecto est voluptas
-          repudiandae quaerat iusto, minus placeat quasi iure. Voluptatem
-          nostrum eaque commodi, doloribus ad quam quasi nemo unde molestias
-          esse eveniet facere tempore ipsam, itaque blanditiis sed illo iure
-          repellendus rem. Possimus autem consequatur quos doloremque fugit
-          perspiciatis recusandae laborum eaque est id! Autem dolores possimus
-          dicta velit dolorem placeat voluptatem ipsam! Blanditiis nobis animi
-          dolorum a illo iste corporis explicabo nam aperiam facere sunt ipsam
-          eaque atque qui repudiandae quas, provident iure quo, eius cupiditate
-          dignissimos quod maiores nostrum consectetur. Obcaecati natus ut
-          beatae consequuntur quo asperiores, illo vitae tempore necessitatibus
-          accusamus culpa aspernatur ipsum incidunt aut dolor ea, molestiae
-          mollitia cum adipisci ipsam in reiciendis! Quas deleniti, nisi modi,
-          beatae reprehenderit culpa odio non dolorum rem alias eius. Hic
-          accusamus earum, porro sunt possimus, vitae voluptatum vero sit omnis
-          tempora suscipit necessitatibus at assumenda quaerat sed commodi
-          blanditiis reiciendis, cupiditate modi nulla.{' '}
-        </Text>
+        <Text style={styles.paraText}>{articleData?.description}</Text>
       </View>
     </ScrollView>
   );
@@ -86,18 +146,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: verticalScale(10),
   },
+  loadingCont: {flex: 1, justifyContent: 'center', alignItems: 'center'},
   headerCont: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
     paddingHorizontal: horizontalScale(15),
+    paddingVertical: verticalScale(10),
     backgroundColor: COLORS.white,
   },
   imageContainer: {
     height: heightPercentageToDP(35),
     width: '100%',
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     borderRadius: 10,
     borderWidth: 2,
   },

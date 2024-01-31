@@ -32,7 +32,7 @@ const HeadBar: React.FC<IHeadBarProps> = ({
         </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={onMenuPress}>
-          <MenuIcon height={15} width={15} />
+          <MenuIcon height={20} width={20} />
         </TouchableOpacity>
       )}
       <View style={Styles.profileandSearchCont}>

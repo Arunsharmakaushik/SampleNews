@@ -25,6 +25,7 @@ type NewsTodayProps = {
 const NewsToday: FC<NewsTodayProps> = ({navigation, articles}) => {
   const [isOptionMenu, setIsOptionMenu] = useState(false);
 
+
   const toggleOptionMenu = useCallback(() => {
     setIsOptionMenu(prevState => !prevState);
   }, []);

@@ -8,7 +8,7 @@ const Styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(15),
     paddingVertical: verticalScale(10),
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     backgroundColor: COLORS.white,
   },
   profileandSearchCont: {

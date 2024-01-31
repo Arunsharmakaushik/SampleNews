@@ -1,6 +1,6 @@
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native';
 import ScreenWrapper from '../../components/wrapper/ScreenWrapper';
 import {Categories, INewsData} from '../../typings/common';
 import {DrawerStackParams} from '../../typings/route';
@@ -13,6 +13,7 @@ import NewsToday from './components/NewsToday';
 type HomeProps = DrawerScreenProps<DrawerStackParams, 'home'>;
 
 const Home: React.FC<HomeProps> = ({navigation}) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState([]);
   const [selectedCategory, setSelectedCategory] =
     useState<Categories>('Sports');
@@ -38,7 +39,7 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
 
     const twentyFourHoursAgo = new Date(
       currentTime.getTime() - 24 * 60 * 60 * 1000,
-    ); // Subtract 24 hours
+    );
 
     return data.filter(item => {
       const publishedDate = new Date(item.published_at);
@@ -48,18 +49,27 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
 
   useEffect(() => {
     let isCurrent = true;
+    setIsLoading(true);
     fetch('https://news-node-beta.vercel.app/api/article')
       .then(res => res.json())
       .then(res => {
         if (isCurrent) {
           setArticles(res);
         }
-      });
+      })
+      .finally(() => setIsLoading(false));
 
     return () => {
       isCurrent = false;
     };
   }, []);
+
+  if (isLoading)
+    return (
+      <View style={styles.loadingCont}>
+        <ActivityIndicator size="large" color={COLORS.blue} />
+      </View>
+    );
 
   return (
     <ScreenWrapper
@@ -85,4 +95,5 @@ const styles = StyleSheet.create({
   scrollView: {
     gap: verticalScale(15),
   },
+  loadingCont: {flex: 1, justifyContent: 'center', alignItems: 'center'},
 });

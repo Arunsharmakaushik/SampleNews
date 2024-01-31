@@ -18,6 +18,6 @@ export type DrawerStackParams = {
   about: undefined;
   ourapp: undefined;
   search: undefined;
-  newsArticle: undefined;
+  newsArticle: {id: string};
   profile: undefined;
 };

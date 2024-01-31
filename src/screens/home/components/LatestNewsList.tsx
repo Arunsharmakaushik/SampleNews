@@ -88,7 +88,7 @@ const LatestNewsList = ({
     ({item}: {item: INewsData}) => (
       <NewsListItem
         item={item}
-        onPress={() => navigation.navigate('newsArticle')}
+        onPress={() => navigation.navigate('newsArticle', {id: item._id})}
       />
     ),
     [],
@@ -106,7 +106,7 @@ const LatestNewsList = ({
       keyExtractor={keyExtractor}
       contentContainerStyle={styles.listCont}
       showsVerticalScrollIndicator={false}
-      onEndReached={loadMoreData}
+      // onEndReached={loadMoreData}
       onEndReachedThreshold={0.5}
       ListFooterComponent={footerComponent}
     />

@@ -12,7 +12,6 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import FONTS from '../../../assets/fonts/indec';
-import {NewsData} from '../../../seeds/NewsData';
 import {INewsData} from '../../../typings/common';
 import {DrawerStackParams} from '../../../typings/route';
 import COLORS from '../../../utils/COLORS';
@@ -27,7 +26,10 @@ const BookMarkedItem = React.memo(
     return (
       <TouchableOpacity onPress={onPress} style={styles.itemCont}>
         <ImageBackground
-          source={{uri: 'https://c.biztoc.com/p/290cf493be42d48a/og.webp'}}
+          source={{
+            uri:
+              item.image || 'https://c.biztoc.com/p/290cf493be42d48a/og.webp',
+          }}
           style={styles.imageCont}
         />
         <Text style={styles.heading}>{item.title}</Text>
@@ -38,8 +40,10 @@ const BookMarkedItem = React.memo(
 
 const BookmarkedList = ({
   navigation,
+  data,
 }: {
   navigation: DrawerNavigationProp<DrawerStackParams>;
+  data: INewsData[];
 }) => {
   const keyExtractor = React.useCallback(
     (item: INewsData, index: number) => `${item.title + index}`,
@@ -49,13 +53,13 @@ const BookmarkedList = ({
   const renderItem = ({item}: {item: INewsData}) => (
     <BookMarkedItem
       item={item}
-      onPress={() => navigation.navigate('newsArticle')}
+      onPress={() => navigation.navigate('newsArticle', {id: item._id})}
     />
   );
 
   return (
     <FlatList
-      data={NewsData}
+      data={data}
       renderItem={renderItem}
       keyExtractor={keyExtractor}
       horizontal

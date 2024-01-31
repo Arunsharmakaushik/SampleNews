@@ -25,6 +25,7 @@ import {
 
 const NewsItem = React.memo(
   ({item, onPress}: {item: INewsData; onPress: () => void}) => {
+    
     const timeDiff = getTimeDifference(item.published_at);
     const categoryName =
       item.category_id.charAt(0).toUpperCase() + item.category_id.slice(1);
@@ -63,7 +64,10 @@ const NewsTodayList = ({
   );
 
   const renderItem = ({item}: {item: INewsData}) => (
-    <NewsItem item={item} onPress={() => navigation.navigate('newsArticle')} />
+    <NewsItem
+      item={item}
+      onPress={() => navigation.navigate('newsArticle', {id: item._id})}
+    />
   );
 
   return (
