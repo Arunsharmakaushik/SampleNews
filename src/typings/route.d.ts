@@ -3,7 +3,7 @@ import {NavigatorScreenParams} from '@react-navigation/native';
 export type RootStackParams = {
   splash: undefined;
   getStarted: undefined;
-  authStack: NavigatorScreenParams<AuthStackParams>;
+  createProfile: undefined;
   mainStack: NavigatorScreenParams<DrawerStackParams>;
 };
 

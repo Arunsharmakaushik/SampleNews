@@ -16,12 +16,19 @@ type SplashProps = NativeStackScreenProps<RootStackParams, 'splash'>;
 const Splash: React.FC<SplashProps> = ({navigation}) => {
   const isOnBoarded = storage.getIsOnBoarded();
 
+  const user = storage.getUser();
+  console.log(user);
+
   React.useEffect(() => {
     const timeout = setTimeout(() => {
       if (isOnBoarded) {
         navigation.replace('mainStack', {screen: 'home'});
       } else {
-        navigation.replace('getStarted');
+        if (user === null) {
+          navigation.replace('createProfile');
+        } else {
+          navigation.replace('getStarted');
+        }
       }
     }, 2000);
     return () => clearTimeout(timeout);

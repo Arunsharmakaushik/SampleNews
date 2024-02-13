@@ -1,4 +1,5 @@
 import {DrawerScreenProps} from '@react-navigation/drawer';
+import {CompositeScreenProps} from '@react-navigation/native';
 import React, {FC} from 'react';
 import {
   ScrollView,
@@ -9,7 +10,7 @@ import {
 } from 'react-native';
 import FONTS from '../../assets/fonts/indec';
 import {BackIcon, SettingsIcon} from '../../assets/icons';
-import {DrawerStackParams} from '../../typings/route';
+import {DrawerStackParams, RootStackParams} from '../../typings/route';
 import COLORS from '../../utils/COLORS';
 import {
   horizontalScale,
@@ -19,8 +20,12 @@ import {
 import Bookmarked from './components/Bookmarked';
 import BottomCard from './components/BottomCard';
 import ProfileCard from './components/ProfileCard';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-type ProfileProps = DrawerScreenProps<DrawerStackParams, 'profile'>;
+type ProfileProps = CompositeScreenProps<
+  DrawerScreenProps<DrawerStackParams, 'profile'>,
+  NativeStackScreenProps<RootStackParams, 'createProfile'>
+>;
 
 const Profile: FC<ProfileProps> = ({navigation}) => {
   return (
@@ -35,7 +40,7 @@ const Profile: FC<ProfileProps> = ({navigation}) => {
             <SettingsIcon />
           </TouchableOpacity>
         </View>
-        <ProfileCard />
+        <ProfileCard navigation={navigation} />
         <Bookmarked navigation={navigation} />
         <BottomCard />
       </View>

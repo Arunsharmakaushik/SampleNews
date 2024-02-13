@@ -1,3 +1,11 @@
+export type User = {
+  Name: string;
+  Email: string;
+  Username: string;
+  Phone: string;
+  Password: string;
+};
+
 export type Categories = 'Sports' | 'Crime' | 'Travel' | 'Style' | 'Automotive';
 
 export type ICategoryType = {

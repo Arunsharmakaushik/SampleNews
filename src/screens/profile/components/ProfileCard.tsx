@@ -1,31 +1,42 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
-import {
-  horizontalScale,
-  responsiveFontSize,
-  verticalScale,
-} from '../../../utils/METRIC';
-import COLORS from '../../../utils/COLORS';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {CompositeNavigationProp} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import React, {FC} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import FONTS from '../../../assets/fonts/indec';
+import {DrawerStackParams, RootStackParams} from '../../../typings/route';
+import COLORS from '../../../utils/COLORS';
+import {
+  horizontalScale,
+  responsiveFontSize,
+  verticalScale,
+} from '../../../utils/METRIC';
+import {storage} from '../../../utils/Storage';
 
-const ProfileCard = () => {
+type ProfileCardProps = {
+  navigation: CompositeNavigationProp<
+    DrawerNavigationProp<DrawerStackParams, 'profile'>,
+    NativeStackNavigationProp<RootStackParams, 'createProfile'>
+  >;
+};
+
+const ProfileCard: FC<ProfileCardProps> = ({navigation}) => {
+  const user = storage.getUser();
+
   return (
     <View style={styles.main}>
-      <Image
-        source={{
-          uri: 'https://c.biztoc.com/p/290cf493be42d48a/og.webp',
-        }}
-        style={styles.imageCont}
-      />
-
       <View style={styles.newsDetailCont}>
-        <Text style={styles.name}>Jaydon Levin</Text>
+        <Text style={styles.name}>{user?.Name || 'User'}</Text>
         <Text style={styles.desc}>Football Enthusiast</Text>
-        <TouchableOpacity style={styles.editProfileCont}>
+        <TouchableOpacity
+          style={styles.editProfileCont}
+          onPress={() => {
+            navigation.navigate('createProfile');
+          }}>
           <Text style={styles.editProfileBtnText}>Edit Profile</Text>
         </TouchableOpacity>
       </View>

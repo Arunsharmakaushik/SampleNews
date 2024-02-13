@@ -1,9 +1,10 @@
-import {observable, ObservableObject} from '@legendapp/state';
+import { observable, ObservableObject } from '@legendapp/state';
 import {
   configureObservablePersistence,
   persistObservable,
 } from '@legendapp/state/persist';
-import {ObservablePersistMMKV} from '@legendapp/state/persist-plugins/mmkv';
+import { ObservablePersistMMKV } from '@legendapp/state/persist-plugins/mmkv';
+import { User } from '../typings/common';
 
 // Global configuration
 configureObservablePersistence({
@@ -13,27 +14,29 @@ configureObservablePersistence({
 interface Storage {
   bookmarks?: string[];
   isOnboarded: boolean;
+  user: User | null;
   // getters
   getBookmarks: () => string[] | undefined;
   getIsOnBoarded: () => boolean | undefined;
+  getUser: () => User;
   // setters
   setBookmarks: (id: string) => void;
   setIsOnBoarded: (isOnboarded: boolean) => void;
   updateBookmarks: (updatedBookmarks: string[]) => void;
+  setUser: (user: User) => void;
 }
 
 export const storage = observable<Storage>({
   bookmarks: [],
   isOnboarded: false,
+  user: null,
 
   // getters
   getBookmarks: () => storage.bookmarks.get(),
   getIsOnBoarded: () => storage.isOnboarded?.get(),
+  getUser: () => storage.user?.get(),
 
   // setters
-  //   setAuthenticated: (authenticated: boolean) =>
-  //     storage.authenticated?.set?.(authenticated),
-  //   setToken: (token: string) => storage.token?.set?.(token),
   setBookmarks: (id: string) => {
     storage.bookmarks.set([...storage.bookmarks.get(), id]);
   },
@@ -42,6 +45,7 @@ export const storage = observable<Storage>({
   },
   setIsOnBoarded: (isOnboarded: boolean) =>
     storage.isOnboarded?.set?.(isOnboarded),
+  setUser: (user: User) => storage.user?.set(user),
 }) as ObservableObject<Storage>;
 
 persistObservable(storage, {

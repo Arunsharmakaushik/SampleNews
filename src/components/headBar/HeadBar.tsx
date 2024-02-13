@@ -1,7 +1,8 @@
 import React from 'react';
-import {Image, Pressable, TouchableOpacity, View} from 'react-native';
+import {Pressable, Text, TouchableOpacity, View} from 'react-native';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import {MenuIcon, SearchIcon} from '../../assets/icons';
+import {storage} from '../../utils/Storage';
 import Styles from './Styles';
 
 interface IHeadBarProps {
@@ -24,6 +25,8 @@ const HeadBar: React.FC<IHeadBarProps> = ({
   onSearchIconPress,
   onProfilePress,
 }) => {
+  const user = storage.getUser();
+
   return (
     <View style={Styles.main}>
       {isBack ? (
@@ -41,10 +44,9 @@ const HeadBar: React.FC<IHeadBarProps> = ({
         </Pressable>
 
         <TouchableOpacity onPress={onProfilePress}>
-          <Image
-            source={require('../../assets/images/Ellipse.png')}
-            style={Styles.profileImage}
-          />
+          <Text style={Styles.profileIocn}>
+            {user?.Name.charAt(0).toUpperCase() || 'U'}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
