@@ -32,7 +32,10 @@ const NewsListItem = React.memo(
       item.category_id.charAt(0).toUpperCase() + item.category_id.slice(1);
 
     return (
-      <TouchableOpacity onPress={onPress} style={styles.itemCont}>
+      <TouchableOpacity
+        activeOpacity={0.9}
+        onPress={onPress}
+        style={styles.itemCont}>
         <Image
           source={{
             uri:

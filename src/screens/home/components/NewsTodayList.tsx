@@ -25,13 +25,15 @@ import {
 
 const NewsItem = React.memo(
   ({item, onPress}: {item: INewsData; onPress: () => void}) => {
-    
     const timeDiff = getTimeDifference(item.published_at);
     const categoryName =
       item.category_id.charAt(0).toUpperCase() + item.category_id.slice(1);
 
     return (
-      <TouchableOpacity onPress={onPress} style={styles.itemCont}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={onPress}
+        style={styles.itemCont}>
         <ImageBackground
           source={{
             uri:

@@ -1,5 +1,5 @@
 import {DrawerScreenProps} from '@react-navigation/drawer';
-import React, {FC, useEffect, useMemo, useState} from 'react';
+import React, {FC, useCallback, useEffect, useMemo, useState} from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -37,12 +37,16 @@ const NewsArticle: FC<DrawerScreenProps<DrawerStackParams, 'newsArticle'>> = ({
   route,
 }) => {
   const {id} = route.params;
+
   const [articleData, setArticleData] = useState<INewsData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const [bookmarkedArticle, setbookmarkedArticle] = useState(
+    storage.getBookmarks(),
+  );
+
   const fetchArticleData = async () => {
-    setIsLoading(true);
     fetch(`https://news-node-beta.vercel.app/api/article/${id}`)
       .then(res => res.json())
       .then(res => setArticleData(res))
@@ -55,42 +59,45 @@ const NewsArticle: FC<DrawerScreenProps<DrawerStackParams, 'newsArticle'>> = ({
   };
 
   useEffect(() => {
+    setIsLoading(true);
     fetchArticleData();
     return () => {
       setArticleData(null);
     };
   }, [id]);
 
-  const handleToggleBookmark = () => {
-    if (storage.getBookmarks()?.includes(id)) {
-      const updatedBookmarks = storage
-        .getBookmarks()
-        ?.filter(bookmarkId => bookmarkId !== id);
-      console.log(updatedBookmarks);
+  const handleToggleBookmark = (articleId: string) => {
+    if (bookmarkedArticle?.includes(articleId)) {
+      const updatedBookmarks = bookmarkedArticle.filter(
+        bookmarkId => bookmarkId !== articleId,
+      );
 
-      storage.updateBookmarks(updatedBookmarks!);
+      setbookmarkedArticle(updatedBookmarks);
+      storage.setBookmarks(updatedBookmarks);
     } else {
-      console.log(id);
-      storage.setBookmarks(id);
+      const updatedBookmarks = [...bookmarkedArticle!, articleId];
+
+      storage.setBookmarks(updatedBookmarks);
+      setbookmarkedArticle(updatedBookmarks);
     }
   };
 
-  const isBookmarked = useMemo(
-    () => storage.getBookmarks()?.includes(id),
-    [storage.getBookmarks()],
+  const isBookmarked = useCallback(
+    () => bookmarkedArticle?.includes(id),
+    [bookmarkedArticle, id],
   );
 
   const renderBookmarkIcon = useMemo(() => {
     return (
-      <TouchableOpacity onPress={handleToggleBookmark}>
-        {isBookmarked ? (
+      <TouchableOpacity onPress={() => handleToggleBookmark(id)}>
+        {isBookmarked() ? (
           <IonIcons name="bookmark" color={COLORS.blue} size={25} />
         ) : (
           <BlueBookmarkIcon />
         )}
       </TouchableOpacity>
     );
-  }, [isBookmarked]);
+  }, [isBookmarked, bookmarkedArticle, id]);
 
   if (isLoading)
     return (
@@ -145,8 +152,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(15),
     alignItems: 'center',
     gap: verticalScale(10),
+    minHeight: heightPercentageToDP(95),
   },
-  loadingCont: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+  loadingCont: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.white,
+  },
   headerCont: {
     flexDirection: 'row',
     alignItems: 'center',

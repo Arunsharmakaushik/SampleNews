@@ -22,6 +22,7 @@ const screenWithoutHeader: Array<keyof DrawerStackParams> = [
   'newsArticle',
   'search',
   'profile',
+  'about',
 ];
 
 export const DrawerStack = () => {

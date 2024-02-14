@@ -23,9 +23,8 @@ interface Storage {
   getUserId: () => string | undefined;
 
   // setters
-  setBookmarks: (id: string) => void;
   setIsOnBoarded: (isOnboarded: boolean) => void;
-  updateBookmarks: (updatedBookmarks: string[]) => void;
+  setBookmarks: (updatedBookmarks: string[]) => void;
   setUser: (user: User) => void;
   setUserId: (id: string) => void;
 }
@@ -43,10 +42,7 @@ export const storage = observable<Storage>({
   getUserId: () => storage.userId.get(),
 
   // setters
-  setBookmarks: (id: string) => {
-    storage.bookmarks.set([...storage.bookmarks.get(), id]);
-  },
-  updateBookmarks: (updatedBookmarks: string[]) => {
+  setBookmarks: (updatedBookmarks: string[]) => {
     storage.bookmarks.set(updatedBookmarks);
   },
   setIsOnBoarded: (isOnboarded: boolean) =>
