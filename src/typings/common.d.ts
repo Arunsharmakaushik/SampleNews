@@ -1,9 +1,9 @@
 export type User = {
-  Name: string;
-  Email: string;
-  Username: string;
-  Phone: string;
-  Password: string;
+  fullname: string;
+  email: string;
+  username: string;
+  phone: string;
+  password: string;
 };
 
 export type Categories = 'Sports' | 'Crime' | 'Travel' | 'Style' | 'Automotive';

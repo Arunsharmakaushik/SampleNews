@@ -5,7 +5,7 @@ import HeadBar from '../components/headBar/HeadBar';
 import About from '../screens/about';
 import BookMarks from '../screens/bookmarks';
 import Categories from '../screens/categories';
-import CreateProfile from '../screens/createProfile/CreateProfile';
+import CreateProfile from '../screens/createProfile';
 import GetStrated from '../screens/getStarted/GetStrated';
 import Home from '../screens/home';
 import NewsArticle from '../screens/newsArticle';
@@ -58,7 +58,7 @@ export const DrawerStack = () => {
   );
 };
 
-export function Routing() {
+export default function Routing() {
   return (
     <RootStack.Navigator
       initialRouteName="splash"

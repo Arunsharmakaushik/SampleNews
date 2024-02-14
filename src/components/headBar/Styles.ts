@@ -10,11 +10,11 @@ const Styles = StyleSheet.create({
   main: {
     flexDirection: 'row',
     paddingHorizontal: horizontalScale(15),
-    paddingVertical: verticalScale(5),
+    paddingBottom: verticalScale(15),
+    paddingTop: verticalScale(10),
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: COLORS.white,
-    marginBottom: verticalScale(10),
   },
   profileandSearchCont: {
     flexDirection: 'row',

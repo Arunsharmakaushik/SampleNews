@@ -73,7 +73,6 @@ export default Bookmarked;
 
 const styles = StyleSheet.create({
   main: {
-    paddingHorizontal: horizontalScale(15),
     gap: verticalScale(25),
   },
   header: {

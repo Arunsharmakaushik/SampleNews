@@ -9,6 +9,7 @@ import {verticalScale} from '../../utils/METRIC';
 import CategoryList from './components/CategoryList';
 import LatestNews from './components/LatestNews';
 import NewsToday from './components/NewsToday';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 type HomeProps = DrawerScreenProps<DrawerStackParams, 'home'>;
 
@@ -76,8 +77,8 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
       StatusBarColor={COLORS.white}
       contentColor="dark-content"
       Styles={styles.main}>
+      <MemoizedCategoryList />
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <MemoizedCategoryList />
         <MemoizedNewsToday />
         <MemoizedLatestNews />
       </ScrollView>
@@ -90,10 +91,16 @@ export default Home;
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: COLORS.white,
   },
   scrollView: {
     gap: verticalScale(15),
+    backgroundColor: COLORS.white,
+    minHeight: heightPercentageToDP(100),
   },
-  loadingCont: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+  loadingCont: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.white,
+  },
 });

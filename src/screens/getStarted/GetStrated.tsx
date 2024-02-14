@@ -28,7 +28,7 @@ const GetStrated: React.FC<GetStartedProps> = ({navigation}) => {
         onPress={() => {
           storage.setIsOnBoarded(true);
           navigation.replace('mainStack', {
-            screen: 'profile',
+            screen: 'home',
           });
         }}
         style={styles.btn}>

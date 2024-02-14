@@ -3,10 +3,7 @@ import {CompositeNavigationProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {FC} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
 import FONTS from '../../../assets/fonts/indec';
 import {DrawerStackParams, RootStackParams} from '../../../typings/route';
 import COLORS from '../../../utils/COLORS';
@@ -26,20 +23,28 @@ type ProfileCardProps = {
 
 const ProfileCard: FC<ProfileCardProps> = ({navigation}) => {
   const user = storage.getUser();
-
+  const userId = storage.getUserId();
   return (
     <View style={styles.main}>
-      <View style={styles.newsDetailCont}>
-        <Text style={styles.name}>{user?.Name || 'User'}</Text>
-        <Text style={styles.desc}>Football Enthusiast</Text>
+      {userId ? (
+        <View style={styles.newsDetailCont}>
+          <Text style={styles.name}>{user?.fullname || 'User'}</Text>
+          <Text style={styles.desc}>Football Enthusiast</Text>
+          <TouchableOpacity
+            style={styles.editProfileCont}
+            onPress={() => {
+              navigation.navigate('createProfile');
+            }}>
+            <Text style={styles.editProfileBtnText}>Edit Profile</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
         <TouchableOpacity
-          style={styles.editProfileCont}
-          onPress={() => {
-            navigation.navigate('createProfile');
-          }}>
-          <Text style={styles.editProfileBtnText}>Edit Profile</Text>
+          onPress={() => navigation.navigate('createProfile')}
+          style={styles.createbtn}>
+          <Text style={styles.createBtnText}>Create your Profile</Text>
         </TouchableOpacity>
-      </View>
+      )}
     </View>
   );
 };
@@ -48,25 +53,17 @@ export default ProfileCard;
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: COLORS.white,
     paddingVertical: verticalScale(10),
-    paddingHorizontal: horizontalScale(15),
-    width: '100%',
-    flexDirection: 'row',
     gap: horizontalScale(20),
-  },
-  imageCont: {
-    height: heightPercentageToDP(20),
-    width: widthPercentageToDP(45),
-    resizeMode: 'cover',
-    borderRadius: 100,
+    alignItems: 'center',
   },
 
   newsDetailCont: {
-    flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     gap: verticalScale(10),
+    width: '100%',
   },
+
   name: {
     fontFamily: FONTS.bold,
     fontSize: responsiveFontSize(22),
@@ -89,5 +86,18 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.medium,
     fontSize: responsiveFontSize(12),
     color: COLORS.white,
+  },
+
+  createbtn: {
+    paddingVertical: verticalScale(18),
+    backgroundColor: COLORS.blue,
+    borderRadius: 30,
+    width: widthPercentageToDP(90),
+  },
+  createBtnText: {
+    fontSize: responsiveFontSize(15),
+    color: COLORS.white,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

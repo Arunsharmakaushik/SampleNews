@@ -52,7 +52,12 @@ const CategoryList: FC<ICategoryListProps> = ({category, setCategory}) => {
 export default CategoryList;
 
 const styles = StyleSheet.create({
-  listCont: {gap: horizontalScale(25), paddingHorizontal: horizontalScale(15)},
+  listCont: {
+    gap: horizontalScale(25),
+    paddingHorizontal: horizontalScale(15),
+    backgroundColor: COLORS.white,
+    paddingBottom: verticalScale(30),
+  },
   listItem: {
     flex: 1,
     alignItems: 'center',
