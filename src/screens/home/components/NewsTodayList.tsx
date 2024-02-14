@@ -31,7 +31,7 @@ const NewsItem = React.memo(
 
     return (
       <TouchableOpacity
-        activeOpacity={0.7}
+        activeOpacity={0.9}
         onPress={onPress}
         style={styles.itemCont}>
         <ImageBackground

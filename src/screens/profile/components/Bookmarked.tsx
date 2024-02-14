@@ -1,12 +1,13 @@
 import {DrawerNavigationProp} from '@react-navigation/drawer';
-import React, {FC, useCallback, useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {FC, useCallback, useEffect, useMemo, useState} from 'react';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import FONTS from '../../../assets/fonts/indec';
 import ThreeDotButton from '../../../components/buttons/ThreeDotButton';
+import {INewsData} from '../../../typings/common';
 import {DrawerStackParams} from '../../../typings/route';
 import COLORS from '../../../utils/COLORS';
 import {
@@ -14,38 +15,45 @@ import {
   responsiveFontSize,
   verticalScale,
 } from '../../../utils/METRIC';
-import BookmarkedList from './BookmarkedList';
 import {storage} from '../../../utils/Storage';
-import {INewsData} from '../../../typings/common';
+import BookmarkedList from './BookmarkedList';
+import {useIsFocused} from '@react-navigation/native';
 
 type BookMarkedProps = {
   navigation: DrawerNavigationProp<DrawerStackParams>;
 };
 
 const Bookmarked: FC<BookMarkedProps> = ({navigation}) => {
+  const isFocused = useIsFocused();
+  const userBookmarks = storage.getBookmarks();
+
   const [isOptionMenu, setIsOptionMenu] = useState(false);
   const [bookmarkList, setBookmarkList] = useState<INewsData[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const toggleOptionMenu = useCallback(() => {
     setIsOptionMenu(prevState => !prevState);
   }, []);
 
   useEffect(() => {
     let isCurrent = true;
+    setIsLoading(true);
     fetch('https://news-node-beta.vercel.app/api/article')
       .then(res => res.json())
       .then((res: INewsData[]) => {
         if (isCurrent) {
           const bookmarkedNews = res.filter(news =>
-            storage.getBookmarks()?.includes(news._id),
+            userBookmarks?.includes(news._id),
           );
           setBookmarkList(bookmarkedNews);
         }
+        setIsLoading(false);
       });
 
     return () => {
       isCurrent = false;
     };
-  }, []);
+  }, [isFocused]);
 
   const OptionMenu = (
     <View>
@@ -53,10 +61,20 @@ const Bookmarked: FC<BookMarkedProps> = ({navigation}) => {
     </View>
   );
 
+  const renderBookmarkedList = useMemo(
+    () =>
+      isLoading ? (
+        <ActivityIndicator color={COLORS.blue} />
+      ) : (
+        <BookmarkedList navigation={navigation} data={bookmarkList} />
+      ),
+    [bookmarkList, userBookmarks, isLoading],
+  );
+
   return (
     <View style={styles.main}>
       <View style={styles.header}>
-        <Text style={styles.title}>News Today</Text>
+        <Text style={styles.title}>My Bookmarks</Text>
         <ThreeDotButton
           menuVisible={isOptionMenu}
           toggleMenu={toggleOptionMenu}
@@ -64,7 +82,7 @@ const Bookmarked: FC<BookMarkedProps> = ({navigation}) => {
           menuStyles={styles.optionMenu}
         />
       </View>
-      <BookmarkedList navigation={navigation} data={bookmarkList} />
+      {renderBookmarkedList}
     </View>
   );
 };

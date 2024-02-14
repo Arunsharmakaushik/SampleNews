@@ -24,7 +24,10 @@ import {
 const BookMarkedItem = React.memo(
   ({item, onPress}: {item: INewsData; onPress: () => void}) => {
     return (
-      <TouchableOpacity onPress={onPress} style={styles.itemCont}>
+      <TouchableOpacity
+        activeOpacity={0.9}
+        onPress={onPress}
+        style={styles.itemCont}>
         <ImageBackground
           source={{
             uri:
