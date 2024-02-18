@@ -14,7 +14,6 @@ import {
 } from 'react-native-responsive-screen';
 import FONTS from '../../../assets/fonts/indec';
 import {BookmarkIcon, ShareIcon} from '../../../assets/icons';
-import {NewsData} from '../../../seeds/NewsData';
 import {INewsData} from '../../../typings/common';
 import COLORS from '../../../utils/COLORS';
 import {
@@ -24,12 +23,13 @@ import {
 } from '../../../utils/METRIC';
 
 type ISearchListProps = {
+  articles: INewsData[];
   onItemPress: () => void;
 };
 
 const ICON_SIZE = horizontalScale(30);
 
-const SearchedList: FC<ISearchListProps> = ({onItemPress}) => {
+const SearchedList: FC<ISearchListProps> = ({articles, onItemPress}) => {
   const keyExtractor = useCallback((item: INewsData) => item.title, []);
 
   const renderRightActions = useCallback(
@@ -63,7 +63,9 @@ const SearchedList: FC<ISearchListProps> = ({onItemPress}) => {
           onPress={onItemPress}
           style={styles.itemCont}>
           <Image
-            source={{uri: 'https://c.biztoc.com/p/290cf493be42d48a/og.webp'}}
+            source={{
+              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSSu2i1o3fCtG2SLCH2_Xyr87h9__hrn9eQ&usqp=CAU',
+            }}
             style={styles.imageCont}
           />
           <View style={styles.newsDetailCont}>
@@ -77,7 +79,7 @@ const SearchedList: FC<ISearchListProps> = ({onItemPress}) => {
 
   return (
     <FlatList
-      data={NewsData}
+      data={articles}
       renderItem={renderItem}
       keyExtractor={keyExtractor}
       contentContainerStyle={styles.listCont}

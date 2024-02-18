@@ -16,8 +16,7 @@ type HomeProps = DrawerScreenProps<DrawerStackParams, 'home'>;
 const Home: React.FC<HomeProps> = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [articles, setArticles] = useState([]);
-  const [selectedCategory, setSelectedCategory] =
-    useState<Categories>('Sports');
+  const [selectedCategory, setSelectedCategory] = useState<Categories>('All');
 
   const MemoizedCategoryList = React.memo(() => (
     <CategoryList
@@ -26,14 +25,20 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
     />
   ));
   const MemoizedNewsToday = React.memo(() => (
-    <NewsToday navigation={navigation} articles={articles} />
+    <NewsToday navigation={navigation} articles={filterNewsByToday(articles)} />
   ));
-  const MemoizedLatestNews = React.memo(() => (
-    <LatestNews
-      navigation={navigation}
-      articles={filterNewsByToday(articles)}
-    />
-  ));
+  const MemoizedLatestNews = React.memo(
+    () => (
+      <LatestNews
+        navigation={navigation}
+        articles={
+          selectedCategory === 'All' ? articles : filternewsByCategory(articles)
+        }
+        selectedCategory={selectedCategory}
+      />
+    ),
+    [selectedCategory],
+  );
 
   const filterNewsByToday = (data: INewsData[]) => {
     const currentTime = new Date();
@@ -45,6 +50,15 @@ const Home: React.FC<HomeProps> = ({navigation}) => {
     return data.filter(item => {
       const publishedDate = new Date(item.published_at);
       return publishedDate >= twentyFourHoursAgo;
+    });
+  };
+
+  const filternewsByCategory = (data: INewsData[]) => {
+    const category: Categories = selectedCategory.toLowerCase();
+
+    return data.filter(item => {
+      const categorisedNews = item.category_id === category;
+      return categorisedNews;
     });
   };
 

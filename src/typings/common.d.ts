@@ -6,7 +6,15 @@ export type User = {
   password: string;
 };
 
-export type Categories = 'Sports' | 'Crime' | 'Travel' | 'Style' | 'Automotive';
+export type Categories =
+  | 'All'
+  | 'Sports'
+  | 'Crime'
+  | 'Travel'
+  | 'Style'
+  | 'Automotive'
+  | 'General'
+  | 'Business';
 
 export type ICategoryType = {
   name: Categories;

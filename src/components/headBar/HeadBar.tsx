@@ -26,6 +26,7 @@ const HeadBar: React.FC<IHeadBarProps> = ({
   onProfilePress,
 }) => {
   const user = storage.getUser();
+  console.log(user, 'LLLLL');
 
   return (
     <View style={Styles.main}>
@@ -45,7 +46,7 @@ const HeadBar: React.FC<IHeadBarProps> = ({
 
         <TouchableOpacity onPress={onProfilePress}>
           <Text style={Styles.profileIocn}>
-            {user?.fullname.charAt(0).toUpperCase() || 'U'}
+            {user?.fullname?.charAt(0).toUpperCase() ?? 'U'}
           </Text>
         </TouchableOpacity>
       </View>

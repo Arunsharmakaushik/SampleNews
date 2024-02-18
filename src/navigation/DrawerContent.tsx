@@ -30,7 +30,7 @@ export const DrwaerData: DrawerItems[] = [
   },
   {
     name: 'Bookmarks',
-    route: 'bookmarks',
+    route: 'profile',
   },
   {
     name: 'About',

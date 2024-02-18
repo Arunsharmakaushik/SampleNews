@@ -23,6 +23,7 @@ const screenWithoutHeader: Array<keyof DrawerStackParams> = [
   'search',
   'profile',
   'about',
+  'bookmarks',
 ];
 
 export const DrawerStack = () => {
@@ -49,8 +50,8 @@ export const DrawerStack = () => {
         <DrawerContent navigation={navigation} />
       )}>
       <Drawer.Screen name="home" component={Home} />
-      <Drawer.Screen name="categories" component={Categories} />
-      <Drawer.Screen name="bookmarks" component={BookMarks} />
+      <Drawer.Screen name="categories" component={Home} />
+      <Drawer.Screen name="bookmarks" component={Profile} />
       <Drawer.Screen name="about" component={About} />
       <Drawer.Screen name="search" component={Search} />
       <Drawer.Screen name="newsArticle" component={NewsArticle} />

@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, {FC, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
+  Alert,
   FlatList,
   ScrollView,
   StyleSheet,
@@ -45,7 +46,7 @@ const InputField: FC<InputFieldProps> = React.memo(
       <TextInput
         value={userDetails[item]}
         onChangeText={text => handleChange(item, text)}
-        placeholder={`Enter your ${item}`}
+        placeholder={item.charAt(0).toUpperCase() + item.slice(1, item.length)}
         style={styles.inputField}
       />
     );
@@ -108,7 +109,8 @@ const CreateProfile: FC<createProfileProps> = ({navigation}) => {
           ? navigation.replace('mainStack', {screen: 'profile'})
           : navigation.replace('mainStack', {screen: 'home'});
       }
-    } catch (error) {
+    } catch (error: any) {
+      Alert.alert('Sorry, Something went wrong. ', error?.error);
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -140,7 +142,7 @@ const CreateProfile: FC<createProfileProps> = ({navigation}) => {
                 </View>
               )}
               <Text style={styles.heading}>
-                {userId ? 'Edit Details' : 'Add Details'}
+                {userId ? 'Update your Profile' : 'Create your Profile'}
               </Text>
               <Text style={styles.subHeading}>
                 Create your profile to save your favourite news article
@@ -195,7 +197,7 @@ const styles = StyleSheet.create({
   scrollCont: {
     backgroundColor: COLORS.white,
     paddingHorizontal: horizontalScale(15),
-    paddingBottom: verticalScale(5),
+    paddingBottom: verticalScale(10),
     gap: verticalScale(20),
     justifyContent: 'space-between',
     minHeight: heightPercentageToDP(100),

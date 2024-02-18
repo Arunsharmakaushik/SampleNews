@@ -10,13 +10,21 @@ import {
 } from '../../../utils/METRIC';
 
 type IRecentSearchProps = {
-  onItemPress: () => void;
+  recentSearches: string[];
+  onItemPress: (searchWord: string) => void;
 };
 
-const RecentSearchBox: FC<IRecentSearchProps> = ({onItemPress}) => {
+const RecentSearchBox: FC<IRecentSearchProps> = ({
+  recentSearches,
+  onItemPress,
+}) => {
   const renderItem = useCallback(
     ({item}: {item: string}) => (
-      <TouchableOpacity onPress={onItemPress} style={styles.itemCont}>
+      <TouchableOpacity
+        onPress={() => {
+          onItemPress(item);
+        }}
+        style={styles.itemCont}>
         <LinkIcon />
         <Text style={styles.itemText}>{item}</Text>
         <GoToIcon />
@@ -30,7 +38,7 @@ const RecentSearchBox: FC<IRecentSearchProps> = ({onItemPress}) => {
   return (
     <View style={styles.main}>
       <FlatList
-        data={['FootBall', 'Sports', 'Crime', 'Music', 'Style']}
+        data={recentSearches.reverse().slice(0, 5)}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         contentContainerStyle={styles.listCont}

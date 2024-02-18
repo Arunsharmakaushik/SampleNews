@@ -14,10 +14,12 @@ import {
 import {ICategoryType} from '../typings/common';
 
 export const CategoryType: ICategoryType[] = [
+  {name: 'All', icon: <SportsIcon />, selectedIcon: <SelectedSportsIcon />},
+  {name: 'General', icon: <StyleIcon />, selectedIcon: <SelectedStyleIcon />},
   {name: 'Sports', icon: <SportsIcon />, selectedIcon: <SelectedSportsIcon />},
+  {name: 'Business', icon: <StyleIcon />, selectedIcon: <SelectedStyleIcon />},
   {name: 'Crime', icon: <CrimeIcon />, selectedIcon: <SelectedCrimeIcon />},
   {name: 'Travel', icon: <TravelIcon />, selectedIcon: <SelectedTravelIcon />},
-  {name: 'Style', icon: <StyleIcon />, selectedIcon: <SelectedStyleIcon />},
   {
     name: 'Automotive',
     icon: <AutomotiveIcon />,

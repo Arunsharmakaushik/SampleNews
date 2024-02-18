@@ -15,7 +15,7 @@ function App(): React.JSX.Element {
     <NavigationContainer>
       <SafeAreaProvider>
         <Routing />
-        {__DEV__ && <NetworkLogger />}
+        <NetworkLogger />
       </SafeAreaProvider>
     </NavigationContainer>
   );

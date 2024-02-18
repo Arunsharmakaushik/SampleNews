@@ -24,7 +24,7 @@ const ThreeDotButton: FC<IThreeDotsButtonProps> = ({
 }) => {
   return (
     <View style={styles.main}>
-      <TouchableOpacity onPress={toggleMenu} style={styles.menuButton}>
+      <TouchableOpacity disabled onPress={toggleMenu} style={styles.menuButton}>
         <Text style={styles.menuText}>•••</Text>
       </TouchableOpacity>
       {menuVisible && (

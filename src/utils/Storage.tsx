@@ -16,17 +16,21 @@ interface Storage {
   isOnboarded: boolean;
   user: User | null;
   userId: string | null;
+  recentSearches: string[];
+
   // getters
   getBookmarks: () => string[] | undefined;
   getIsOnBoarded: () => boolean | undefined;
   getUser: () => User;
   getUserId: () => string | undefined;
+  getRecentSearches: () => string[] | undefined;
 
   // setters
   setIsOnBoarded: (isOnboarded: boolean) => void;
   setBookmarks: (updatedBookmarks: string[]) => void;
   setUser: (user: User) => void;
   setUserId: (id: string) => void;
+  setRecentSearches: (recentSearches: string) => void;
 }
 
 export const storage = observable<Storage>({
@@ -34,12 +38,14 @@ export const storage = observable<Storage>({
   isOnboarded: false,
   user: null,
   userId: null,
+  recentSearches: [],
 
   // getters
   getBookmarks: () => storage.bookmarks.get(),
   getIsOnBoarded: () => storage.isOnboarded?.get(),
   getUser: () => storage.user?.get(),
   getUserId: () => storage.userId.get(),
+  getRecentSearches: () => storage.recentSearches.get(),
 
   // setters
   setBookmarks: (updatedBookmarks: string[]) => {
@@ -49,6 +55,12 @@ export const storage = observable<Storage>({
     storage.isOnboarded?.set?.(isOnboarded),
   setUser: (user: User) => storage.user?.set(user),
   setUserId: (id: string) => storage.userId?.set(id),
+
+  setRecentSearches: (recentSearches: string) =>
+    storage.recentSearches.set([
+      ...storage.recentSearches.get(),
+      recentSearches,
+    ]),
 }) as ObservableObject<Storage>;
 
 persistObservable(storage, {

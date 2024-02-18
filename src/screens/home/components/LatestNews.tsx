@@ -7,7 +7,7 @@ import {
 } from 'react-native-responsive-screen';
 import FONTS from '../../../assets/fonts/indec';
 import ThreeDotButton from '../../../components/buttons/ThreeDotButton';
-import {INewsData} from '../../../typings/common';
+import {Categories, INewsData} from '../../../typings/common';
 import {DrawerStackParams} from '../../../typings/route';
 import COLORS from '../../../utils/COLORS';
 import {
@@ -20,9 +20,14 @@ import LatestNewsList from './LatestNewsList';
 type LatestNewsProps = {
   navigation: DrawerNavigationProp<DrawerStackParams>;
   articles: INewsData[];
+  selectedCategory: Categories;
 };
 
-const LatestNews: FC<LatestNewsProps> = ({navigation, articles}) => {
+const LatestNews: FC<LatestNewsProps> = ({
+  navigation,
+  articles,
+  selectedCategory,
+}) => {
   const [isOptionMenu, setIsOptionMenu] = useState(false);
 
   const toggleOptionMenu = useCallback(() => {
@@ -46,7 +51,15 @@ const LatestNews: FC<LatestNewsProps> = ({navigation, articles}) => {
           menuStyles={styles.optionMenu}
         />
       </View>
-      <LatestNewsList navigation={navigation} latestArticles={articles} />
+      {articles.length > 0 ? (
+        <LatestNewsList navigation={navigation} latestArticles={articles} />
+      ) : (
+        <View style={styles.emptyBoxCont}>
+          <Text style={styles.emptyBoxTitle}>
+            No News related to {selectedCategory}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -81,5 +94,22 @@ const styles = StyleSheet.create({
   menuItem: {
     paddingHorizontal: 15,
     paddingVertical: 10,
+  },
+  emptyBoxCont: {
+    paddingVertical: verticalScale(80),
+    borderRadius: 10,
+    width: widthPercentageToDP(90),
+    backgroundColor: COLORS.white,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 2,
+    alignItems: 'center',
+  },
+  emptyBoxTitle: {
+    fontSize: responsiveFontSize(15),
+    fontFamily: FONTS.regular,
+    color: COLORS.black,
   },
 });

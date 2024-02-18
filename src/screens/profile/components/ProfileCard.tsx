@@ -2,7 +2,7 @@ import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {CompositeNavigationProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {FC} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {widthPercentageToDP} from 'react-native-responsive-screen';
 import FONTS from '../../../assets/fonts/indec';
 import {DrawerStackParams, RootStackParams} from '../../../typings/route';
@@ -27,16 +27,40 @@ const ProfileCard: FC<ProfileCardProps> = ({navigation}) => {
   return (
     <View style={styles.main}>
       {userId ? (
-        <View style={styles.newsDetailCont}>
-          <Text style={styles.name}>{user?.fullname || 'User'}</Text>
-          <Text style={styles.desc}>Football Enthusiast</Text>
-          <TouchableOpacity
-            style={styles.editProfileCont}
-            onPress={() => {
-              navigation.navigate('createProfile');
-            }}>
-            <Text style={styles.editProfileBtnText}>Edit Profile</Text>
-          </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            width: '100%',
+            paddingVertical: verticalScale(20),
+            borderRadius: 15,
+            backgroundColor: COLORS.white,
+            shadowColor: '#000',
+            shadowOffset: {width: 0, height: 1},
+            shadowOpacity: 0.5,
+            shadowRadius: 3,
+            elevation: 2,
+            justifyContent: 'space-around',
+          }}>
+          <Image
+            source={require('../../../assets/icons/user.png')}
+            style={{
+              width: horizontalScale(120),
+              height: verticalScale(120),
+              resizeMode: 'contain',
+            }}
+          />
+          <View style={styles.newsDetailCont}>
+            <Text style={styles.name}>{user?.fullname || 'User'}</Text>
+            {/* <Text style={styles.desc}>Football Enthusiast</Text> */}
+            <TouchableOpacity
+              style={styles.editProfileCont}
+              onPress={() => {
+                navigation.navigate('createProfile');
+              }}>
+              <Text style={styles.editProfileBtnText}>Edit Profile</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       ) : (
         <TouchableOpacity
@@ -61,7 +85,6 @@ const styles = StyleSheet.create({
   newsDetailCont: {
     justifyContent: 'flex-start',
     gap: verticalScale(10),
-    width: '100%',
   },
 
   name: {

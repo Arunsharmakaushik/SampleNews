@@ -25,7 +25,6 @@ type NewsTodayProps = {
 const NewsToday: FC<NewsTodayProps> = ({navigation, articles}) => {
   const [isOptionMenu, setIsOptionMenu] = useState(false);
 
-
   const toggleOptionMenu = useCallback(() => {
     setIsOptionMenu(prevState => !prevState);
   }, []);
@@ -47,7 +46,13 @@ const NewsToday: FC<NewsTodayProps> = ({navigation, articles}) => {
           menuStyles={styles.optionMenu}
         />
       </View>
-      <NewsTodayList navigation={navigation} articles={articles} />
+      {articles.length > 0 ? (
+        <NewsTodayList navigation={navigation} articles={articles} />
+      ) : (
+        <View style={styles.emptyBoxCont}>
+          <Text style={styles.emptyBoxTitle}>No News For Today </Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -82,5 +87,22 @@ const styles = StyleSheet.create({
   menuItem: {
     paddingHorizontal: 15,
     paddingVertical: 10,
+  },
+  emptyBoxCont: {
+    paddingVertical: verticalScale(20),
+    borderRadius: 15,
+    width: widthPercentageToDP(90),
+    backgroundColor: COLORS.white,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 2,
+    alignItems: 'center',
+  },
+  emptyBoxTitle: {
+    fontSize: responsiveFontSize(15),
+    fontFamily: FONTS.regular,
+    color: COLORS.black,
   },
 });

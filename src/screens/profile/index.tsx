@@ -36,9 +36,9 @@ const Profile: FC<ProfileProps> = ({navigation}) => {
             <BackIcon />
           </TouchableOpacity>
           <Text style={styles.centerText}>My Profile</Text>
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <SettingsIcon />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <ProfileCard navigation={navigation} />
         <Bookmarked navigation={navigation} />
@@ -70,5 +70,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.regular,
     fontSize: responsiveFontSize(18),
     color: COLORS.black,
+    flex: 1,
+    textAlign: 'center',
   },
 });

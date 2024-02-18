@@ -31,7 +31,8 @@ const BookMarkedItem = React.memo(
         <ImageBackground
           source={{
             uri:
-              item.image || 'https://c.biztoc.com/p/290cf493be42d48a/og.webp',
+              item.image ||
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSSu2i1o3fCtG2SLCH2_Xyr87h9__hrn9eQ&usqp=CAUs',
           }}
           style={styles.imageCont}
         />
