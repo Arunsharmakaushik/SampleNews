@@ -7,7 +7,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import FONTS from '../../assets/fonts/indec';
 import { BackIcon, SearchIcon } from '../../assets/icons';
@@ -16,7 +16,7 @@ import COLORS from '../../utils/COLORS';
 import {
   horizontalScale,
   responsiveFontSize,
-  verticalScale,
+  verticalScale
 } from '../../utils/METRIC';
 import { storage } from '../../utils/Storage';
 import RecentSearchBox from './components/RecentSearchBox';
@@ -191,6 +191,7 @@ const styles = StyleSheet.create({
   },
   inputBox: {
     flex: 1,
+    paddingVertical:5
   },
   ListText: {
     fontFamily: FONTS.medium,

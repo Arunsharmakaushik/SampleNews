@@ -1,19 +1,19 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import {RootStackParams} from '../../typings/route';
-import COLORS from '../../utils/COLORS';
-import {storage} from '../../utils/Storage';
-import Styles from './Styles';
-import ScreenWrapper from '../../components/wrapper/ScreenWrapper';
-import {AppLogo} from '../../assets/icons/index';
+import { Platform, Text } from 'react-native';
 import {
   heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
+  widthPercentageToDP as wp
 } from 'react-native-responsive-screen';
-import {Text} from 'react-native';
+import { AppLogo } from '../../assets/icons/index';
+import ScreenWrapper from '../../components/wrapper/ScreenWrapper';
+import { RootStackParams } from '../../typings/route';
+import COLORS from '../../utils/COLORS';
+import { storage } from '../../utils/Storage';
+import Styles from './Styles';
 type SplashProps = NativeStackScreenProps<RootStackParams, 'splash'>;
 
-const Splash: React.FC<SplashProps> = ({navigation}) => {
+const Splash: React.FC<SplashProps> = ({ navigation }) => {
   const isOnBoarded = storage.getIsOnBoarded();
 
   const user = storage.getUser();
@@ -22,7 +22,7 @@ const Splash: React.FC<SplashProps> = ({navigation}) => {
   React.useEffect(() => {
     const timeout = setTimeout(() => {
       if (isOnBoarded) {
-        navigation.replace('mainStack', {screen: 'home'});
+        navigation.replace('mainStack', { screen: 'home' });
       } else {
         if (user === null) {
           navigation.replace('createProfile');
@@ -33,6 +33,10 @@ const Splash: React.FC<SplashProps> = ({navigation}) => {
     }, 2000);
     return () => clearTimeout(timeout);
   }, [isOnBoarded]);
+
+  if (Platform.OS === "ios") {
+    return null
+  }
 
   return (
     <ScreenWrapper

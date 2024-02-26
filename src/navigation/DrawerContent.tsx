@@ -1,18 +1,18 @@
-import {useNavigationState} from '@react-navigation/native';
-import React, {FC} from 'react';
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {DrawerStackParams} from '../typings/route';
+import { useNavigationState } from '@react-navigation/native';
+import React, { FC } from 'react';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { DrawerStackParams } from '../typings/route';
 import {
   horizontalScale,
   responsiveFontSize,
-  verticalScale,
+  verticalScale
 } from '../utils/METRIC';
 
-import {DrawerNavigationHelpers} from '@react-navigation/drawer/lib/typescript/src/types';
+import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import FONTS from '../assets/fonts/indec';
-import {BulbIcon, CloseIcon} from '../assets/icons';
+import { BulbIcon, CloseIcon } from '../assets/icons';
 import COLORS from '../utils/COLORS';
-import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 type DrawerItems = {
   name: string;

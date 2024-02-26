@@ -1,5 +1,5 @@
-import {DrawerNavigationProp} from '@react-navigation/drawer';
-import React, {useCallback, useMemo, useState} from 'react';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -7,26 +7,26 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import {
   heightPercentageToDP,
-  widthPercentageToDP,
+  widthPercentageToDP
 } from 'react-native-responsive-screen';
 import FONTS from '../../../assets/fonts/indec';
-import {NewsData} from '../../../seeds/NewsData';
-import {INewsData} from '../../../typings/common';
-import {DrawerStackParams} from '../../../typings/route';
+import { NewsData } from '../../../seeds/NewsData';
+import { INewsData } from '../../../typings/common';
+import { DrawerStackParams } from '../../../typings/route';
 import COLORS from '../../../utils/COLORS';
-import {getTimeDifference} from '../../../utils/Helpers';
+import { getTimeDifference } from '../../../utils/Helpers';
 import {
   horizontalScale,
   responsiveFontSize,
-  verticalScale,
+  verticalScale
 } from '../../../utils/METRIC';
 
 const NewsListItem = React.memo(
-  ({item, onPress}: {item: INewsData; onPress: () => void}) => {
+  ({ item, onPress }: { item: INewsData; onPress: () => void }) => {
     const timeDiff = getTimeDifference(item.published_at);
     const categoryName =
       item.category_id.charAt(0).toUpperCase() + item.category_id.slice(1);
@@ -43,11 +43,18 @@ const NewsListItem = React.memo(
               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSSu2i1o3fCtG2SLCH2_Xyr87h9__hrn9eQ&usqp=CAU',
           }}
           style={styles.imageCont}
+          resizeMode={"cover"}
         />
         <View style={styles.newsDetailCont}>
           <Text style={styles.heading}>{item.title}</Text>
           <View style={styles.categoryTimeCont}>
-            <Text style={styles.category}>{categoryName}</Text>
+            <View style={styles.category}>
+              <Text style={{
+                fontSize: responsiveFontSize(10),
+                fontFamily: FONTS.semiBold,
+                color: COLORS.white,
+              }} >{categoryName}</Text>
+            </View>
             <Text>{timeDiff}</Text>
           </View>
         </View>
@@ -89,10 +96,10 @@ const LatestNewsList = ({
   );
 
   const renderItem = useCallback(
-    ({item}: {item: INewsData}) => (
+    ({ item }: { item: INewsData }) => (
       <NewsListItem
         item={item}
-        onPress={() => navigation.navigate('newsArticle', {id: item._id})}
+        onPress={() => navigation.navigate('newsArticle', { id: item._id })}
       />
     ),
     [],
@@ -120,17 +127,17 @@ const LatestNewsList = ({
 export default LatestNewsList;
 
 const styles = StyleSheet.create({
-  listCont: {gap: horizontalScale(15), paddingBottom: verticalScale(5)},
+  listCont: { gap: horizontalScale(15), paddingBottom: verticalScale(5) },
   itemCont: {
     flexDirection: 'row',
     borderRadius: 15,
     width: widthPercentageToDP(90),
     backgroundColor: COLORS.white,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: { width: 2, height: 1 },
     shadowOpacity: 0.5,
     shadowRadius: 3,
-    elevation: 2,
+    elevation: 1,
     padding: horizontalScale(16),
     gap: horizontalScale(15),
   },

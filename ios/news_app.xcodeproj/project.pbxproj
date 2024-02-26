@@ -13,15 +13,15 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-news_app-news_appTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-news_app-news_appTests.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		C24BA43A9AF647CB8A18E13D /* Sora-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6336ADFCF9F64B3495366B80 /* Sora-Bold.ttf */; };
+		785A2834DEA0464EA0545338 /* Sora-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B3068932DBF45D5811E380F /* Sora-Thin.ttf */; };
 		79A5C439A7BA4E37B2D81482 /* Sora-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B053E3A6324345D98EC604AB /* Sora-ExtraBold.ttf */; };
-		E85F6EE2B8FF42EBB49AC4E5 /* Sora-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5A4C170C824459A8BD04643 /* Sora-ExtraLight.ttf */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B9DD8875B9DF4F5DBA4809FA /* Sora-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 883ABA1921B540EABE1B10B1 /* Sora-Light.ttf */; };
+		C24BA43A9AF647CB8A18E13D /* Sora-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6336ADFCF9F64B3495366B80 /* Sora-Bold.ttf */; };
+		D19A14E1048D414D8B582638 /* Sora-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 195785F806F44E7FB3E08FB0 /* Sora-SemiBold.ttf */; };
+		E85F6EE2B8FF42EBB49AC4E5 /* Sora-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5A4C170C824459A8BD04643 /* Sora-ExtraLight.ttf */; };
 		F35CEC1463834C0386EDFE1A /* Sora-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6776495641846B8B7277A7C /* Sora-Medium.ttf */; };
 		F710BF0A5A3C496F896ED819 /* Sora-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A25F508F0F8471791B67FA2 /* Sora-Regular.ttf */; };
-		D19A14E1048D414D8B582638 /* Sora-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 195785F806F44E7FB3E08FB0 /* Sora-SemiBold.ttf */; };
-		785A2834DEA0464EA0545338 /* Sora-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B3068932DBF45D5811E380F /* Sora-Thin.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,22 +44,22 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = news_app/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = news_app/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = news_app/main.m; sourceTree = "<group>"; };
+		195785F806F44E7FB3E08FB0 /* Sora-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Sora-SemiBold.ttf"; path = "../src/assets/fonts/Sora-SemiBold.ttf"; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-news_app-news_appTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-news_app-news_appTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A25F508F0F8471791B67FA2 /* Sora-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Sora-Regular.ttf"; path = "../src/assets/fonts/Sora-Regular.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-news_app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-news_app.debug.xcconfig"; path = "Target Support Files/Pods-news_app/Pods-news_app.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-news_app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-news_app.release.xcconfig"; path = "Target Support Files/Pods-news_app/Pods-news_app.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-news_app-news_appTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-news_app-news_appTests.debug.xcconfig"; path = "Target Support Files/Pods-news_app-news_appTests/Pods-news_app-news_appTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-news_app.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-news_app.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6336ADFCF9F64B3495366B80 /* Sora-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Sora-Bold.ttf"; path = "../src/assets/fonts/Sora-Bold.ttf"; sourceTree = "<group>"; };
+		6B3068932DBF45D5811E380F /* Sora-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Sora-Thin.ttf"; path = "../src/assets/fonts/Sora-Thin.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = news_app/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		883ABA1921B540EABE1B10B1 /* Sora-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Sora-Light.ttf"; path = "../src/assets/fonts/Sora-Light.ttf"; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-news_app-news_appTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-news_app-news_appTests.release.xcconfig"; path = "Target Support Files/Pods-news_app-news_appTests/Pods-news_app-news_appTests.release.xcconfig"; sourceTree = "<group>"; };
+		B053E3A6324345D98EC604AB /* Sora-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Sora-ExtraBold.ttf"; path = "../src/assets/fonts/Sora-ExtraBold.ttf"; sourceTree = "<group>"; };
+		D5A4C170C824459A8BD04643 /* Sora-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Sora-ExtraLight.ttf"; path = "../src/assets/fonts/Sora-ExtraLight.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		6336ADFCF9F64B3495366B80 /* Sora-Bold.ttf */ = {isa = PBXFileReference; name = "Sora-Bold.ttf"; path = "../src/assets/fonts/Sora-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B053E3A6324345D98EC604AB /* Sora-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Sora-ExtraBold.ttf"; path = "../src/assets/fonts/Sora-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D5A4C170C824459A8BD04643 /* Sora-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Sora-ExtraLight.ttf"; path = "../src/assets/fonts/Sora-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		883ABA1921B540EABE1B10B1 /* Sora-Light.ttf */ = {isa = PBXFileReference; name = "Sora-Light.ttf"; path = "../src/assets/fonts/Sora-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F6776495641846B8B7277A7C /* Sora-Medium.ttf */ = {isa = PBXFileReference; name = "Sora-Medium.ttf"; path = "../src/assets/fonts/Sora-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3A25F508F0F8471791B67FA2 /* Sora-Regular.ttf */ = {isa = PBXFileReference; name = "Sora-Regular.ttf"; path = "../src/assets/fonts/Sora-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		195785F806F44E7FB3E08FB0 /* Sora-SemiBold.ttf */ = {isa = PBXFileReference; name = "Sora-SemiBold.ttf"; path = "../src/assets/fonts/Sora-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6B3068932DBF45D5811E380F /* Sora-Thin.ttf */ = {isa = PBXFileReference; name = "Sora-Thin.ttf"; path = "../src/assets/fonts/Sora-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F6776495641846B8B7277A7C /* Sora-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Sora-Medium.ttf"; path = "../src/assets/fonts/Sora-Medium.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +110,21 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = news_app;
+			sourceTree = "<group>";
+		};
+		215E993F78284F68A40DB03C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6336ADFCF9F64B3495366B80 /* Sora-Bold.ttf */,
+				B053E3A6324345D98EC604AB /* Sora-ExtraBold.ttf */,
+				D5A4C170C824459A8BD04643 /* Sora-ExtraLight.ttf */,
+				883ABA1921B540EABE1B10B1 /* Sora-Light.ttf */,
+				F6776495641846B8B7277A7C /* Sora-Medium.ttf */,
+				3A25F508F0F8471791B67FA2 /* Sora-Regular.ttf */,
+				195785F806F44E7FB3E08FB0 /* Sora-SemiBold.ttf */,
+				6B3068932DBF45D5811E380F /* Sora-Thin.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -164,22 +179,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		215E993F78284F68A40DB03C /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				6336ADFCF9F64B3495366B80 /* Sora-Bold.ttf */,
-				B053E3A6324345D98EC604AB /* Sora-ExtraBold.ttf */,
-				D5A4C170C824459A8BD04643 /* Sora-ExtraLight.ttf */,
-				883ABA1921B540EABE1B10B1 /* Sora-Light.ttf */,
-				F6776495641846B8B7277A7C /* Sora-Medium.ttf */,
-				3A25F508F0F8471791B67FA2 /* Sora-Regular.ttf */,
-				195785F806F44E7FB3E08FB0 /* Sora-SemiBold.ttf */,
-				6B3068932DBF45D5811E380F /* Sora-Thin.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -585,7 +584,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -613,6 +612,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -620,7 +620,11 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
+				OTHER_LDFLAGS = "$(inherited)  ";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=*]" = "News App";
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -657,7 +661,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -677,6 +681,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -684,7 +689,11 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 				);
+				OTHER_LDFLAGS = "$(inherited)  ";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=*]" = "News App";
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

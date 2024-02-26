@@ -1,4 +1,4 @@
-import {DrawerNavigationProp} from '@react-navigation/drawer';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import React from 'react';
 import {
   FlatList,
@@ -6,21 +6,21 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import {
   heightPercentageToDP,
-  widthPercentageToDP,
+  widthPercentageToDP
 } from 'react-native-responsive-screen';
 import FONTS from '../../../assets/fonts/indec';
-import {INewsData} from '../../../typings/common';
-import {DrawerStackParams} from '../../../typings/route';
+import { INewsData } from '../../../typings/common';
+import { DrawerStackParams } from '../../../typings/route';
 import COLORS from '../../../utils/COLORS';
-import {getTimeDifference} from '../../../utils/Helpers';
+import { getTimeDifference } from '../../../utils/Helpers';
 import {
   horizontalScale,
   responsiveFontSize,
-  verticalScale,
+  verticalScale
 } from '../../../utils/METRIC';
 
 const NewsItem = React.memo(
@@ -43,9 +43,13 @@ const NewsItem = React.memo(
           style={styles.imageCont}
         />
         <View style={styles.newsDetailCont}>
+          <View style={{flexDirection:"row",alignItems:"center"}}>
+          <View style={styles.blueDot} /> 
           <Text style={styles.category}>
-            <View style={styles.blueDot} /> {categoryName}
+            {categoryName}
           </Text>
+          </View>
+      
           <Text>{timeDiff}</Text>
         </View>
         <Text style={styles.heading}>{item.title}</Text>
@@ -94,6 +98,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: widthPercentageToDP(90),
     backgroundColor: COLORS.white,
+    borderWidth:0.2,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.5,
@@ -117,11 +122,11 @@ const styles = StyleSheet.create({
   },
 
   blueDot: {
-    height: heightPercentageToDP(1.5),
-    width: widthPercentageToDP(3),
+    height: 12,
+    width: 12,
     backgroundColor: COLORS.blue,
     borderRadius: 100,
-    marginRight: horizontalScale(4),
+    marginRight: 3,
   },
   heading: {
     fontSize: responsiveFontSize(16),

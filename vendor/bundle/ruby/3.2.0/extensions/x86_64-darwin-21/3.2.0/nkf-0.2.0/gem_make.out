@@ -1,0 +1,19 @@
+current directory: /Users/rajesh/Sourcetree/Sample/News-App-React-Native-main/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+/Users/rajesh/.rvm/rubies/ruby-3.2.0/bin/ruby -I /Users/rajesh/.rvm/rubies/ruby-3.2.0/lib/ruby/3.2.0 extconf.rb
+creating Makefile
+
+current directory: /Users/rajesh/Sourcetree/Sample/News-App-React-Native-main/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20240226-73054-qcoijn sitelibdir\=./.gem.20240226-73054-qcoijn clean
+
+current directory: /Users/rajesh/Sourcetree/Sample/News-App-React-Native-main/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20240226-73054-qcoijn sitelibdir\=./.gem.20240226-73054-qcoijn
+compiling nkf.c
+linking shared-object nkf.bundle
+ld: warning: -undefined dynamic_lookup may not work with chained fixups
+
+current directory: /Users/rajesh/Sourcetree/Sample/News-App-React-Native-main/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20240226-73054-qcoijn sitelibdir\=./.gem.20240226-73054-qcoijn install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 nkf.bundle ./.gem.20240226-73054-qcoijn
+
+current directory: /Users/rajesh/Sourcetree/Sample/News-App-React-Native-main/vendor/bundle/ruby/3.2.0/gems/nkf-0.2.0/ext/nkf
+make DESTDIR\= sitearchdir\=./.gem.20240226-73054-qcoijn sitelibdir\=./.gem.20240226-73054-qcoijn clean

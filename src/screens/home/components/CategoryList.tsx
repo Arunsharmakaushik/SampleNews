@@ -1,14 +1,14 @@
-import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React, {Dispatch, FC, SetStateAction} from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import FONTS from '../../../assets/fonts/indec';
+import { CategoryType } from '../../../seeds/CategoryData';
+import { Categories, ICategoryType } from '../../../typings/common';
+import COLORS from '../../../utils/COLORS';
 import {
   horizontalScale,
   responsiveFontSize,
-  verticalScale,
+  verticalScale
 } from '../../../utils/METRIC';
-import {CategoryType} from '../../../seeds/CategoryData';
-import FONTS from '../../../assets/fonts/indec';
-import COLORS from '../../../utils/COLORS';
-import {Categories, ICategoryType} from '../../../typings/common';
 
 type ICategoryListProps = {
   category: Categories;

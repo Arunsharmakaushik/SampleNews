@@ -1,8 +1,10 @@
 import React from 'react';
-import {Pressable, Text, TouchableOpacity, View} from 'react-native';
+import { Pressable, Text, TouchableOpacity, View } from 'react-native';
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import {MenuIcon, SearchIcon} from '../../assets/icons';
-import {storage} from '../../utils/Storage';
+import { MenuIcon, SearchIcon } from '../../assets/icons';
+import COLORS from '../../utils/COLORS';
+import { responsiveFontSize } from '../../utils/METRIC';
+import { storage } from '../../utils/Storage';
 import Styles from './Styles';
 
 interface IHeadBarProps {
@@ -44,8 +46,11 @@ const HeadBar: React.FC<IHeadBarProps> = ({
           <SearchIcon height={25} width={25} />
         </Pressable>
 
-        <TouchableOpacity onPress={onProfilePress}>
-          <Text style={Styles.profileIocn}>
+        <TouchableOpacity style={Styles.profileIocn} onPress={onProfilePress}>
+          <Text style={{
+            color: COLORS.white,
+            fontSize: responsiveFontSize(13),
+          }}>
             {user?.fullname?.charAt(0).toUpperCase() ?? 'U'}
           </Text>
         </TouchableOpacity>

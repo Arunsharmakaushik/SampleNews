@@ -1,25 +1,25 @@
-import React, {FC, useCallback} from 'react';
+import React, { FC, useCallback } from 'react';
 import {
   FlatList,
   Image,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import {Swipeable} from 'react-native-gesture-handler';
+import { Swipeable } from 'react-native-gesture-handler';
 import {
   heightPercentageToDP,
-  widthPercentageToDP,
+  widthPercentageToDP
 } from 'react-native-responsive-screen';
 import FONTS from '../../../assets/fonts/indec';
-import {BookmarkIcon, ShareIcon} from '../../../assets/icons';
-import {INewsData} from '../../../typings/common';
+import { BookmarkIcon, ShareIcon } from '../../../assets/icons';
+import { INewsData } from '../../../typings/common';
 import COLORS from '../../../utils/COLORS';
 import {
   horizontalScale,
   responsiveFontSize,
-  verticalScale,
+  verticalScale
 } from '../../../utils/METRIC';
 
 type ISearchListProps = {
@@ -80,6 +80,7 @@ const SearchedList: FC<ISearchListProps> = ({articles, onItemPress}) => {
   return (
     <FlatList
       data={articles}
+      style={{flex:1}}
       renderItem={renderItem}
       keyExtractor={keyExtractor}
       contentContainerStyle={styles.listCont}
@@ -97,8 +98,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     width: widthPercentageToDP(90),
     borderRadius: 20,
+    borderWidth:0.3,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowOffset: {width: 10, height: 1},
     shadowOpacity: 0.5,
     shadowRadius: 3,
     elevation: 2,
@@ -106,10 +108,9 @@ const styles = StyleSheet.create({
 
   itemCont: {
     flexDirection: 'row',
-    backgroundColor: COLORS.white,
     gap: horizontalScale(15),
-    padding: horizontalScale(16),
-    borderRadius: 35,
+    margin: horizontalScale(10),
+    // borderRadius: 35,
   },
 
   imageCont: {

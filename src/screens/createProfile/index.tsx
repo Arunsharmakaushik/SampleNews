@@ -1,6 +1,6 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import axios from 'axios';
-import React, {FC, useEffect, useState} from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -11,24 +11,24 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  ViewStyle,
+  ViewStyle
 } from 'react-native';
 import {
   heightPercentageToDP,
-  widthPercentageToDP,
+  widthPercentageToDP
 } from 'react-native-responsive-screen';
-import {BackIcon} from '../../assets/icons';
+import { BackIcon } from '../../assets/icons';
 import ScreenWrapper from '../../components/wrapper/ScreenWrapper';
-import {User} from '../../typings/common';
-import {RootStackParams} from '../../typings/route';
+import { User } from '../../typings/common';
+import { RootStackParams } from '../../typings/route';
 import COLORS from '../../utils/COLORS';
 import ENDPOINTS from '../../utils/ENDPOINTS';
 import {
   horizontalScale,
   responsiveFontSize,
-  verticalScale,
+  verticalScale
 } from '../../utils/METRIC';
-import {storage} from '../../utils/Storage';
+import { storage } from '../../utils/Storage';
 
 type createProfileProps = NativeStackScreenProps<
   RootStackParams,
@@ -159,9 +159,12 @@ const CreateProfile: FC<createProfileProps> = ({navigation}) => {
           )}
           keyExtractor={keyExtractor}
           contentContainerStyle={styles.listCont}
+          style={{flex:1}}
         />
 
-        <View style={styles.btnCont}>
+       
+      </ScrollView>
+      <View style={styles.btnCont}>
           <TouchableOpacity onPress={handleCreateUser} style={styles.savebtn}>
             <Text style={styles.saveBtnText}>
               {isLoading ? (
@@ -184,7 +187,6 @@ const CreateProfile: FC<createProfileProps> = ({navigation}) => {
             </TouchableOpacity>
           )}
         </View>
-      </ScrollView>
     </ScreenWrapper>
   );
 };
@@ -195,6 +197,7 @@ const styles = StyleSheet.create({
   main: {flex: 1},
 
   scrollCont: {
+    flex:1,
     backgroundColor: COLORS.white,
     paddingHorizontal: horizontalScale(15),
     paddingBottom: verticalScale(10),

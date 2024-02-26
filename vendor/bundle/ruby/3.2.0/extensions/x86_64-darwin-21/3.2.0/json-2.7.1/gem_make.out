@@ -1,0 +1,16 @@
+current directory: /Users/rajesh/Sourcetree/Sample/News-App-React-Native-main/vendor/bundle/ruby/3.2.0/gems/json-2.7.1/ext/json
+/Users/rajesh/.rvm/rubies/ruby-3.2.0/bin/ruby -I /Users/rajesh/.rvm/rubies/ruby-3.2.0/lib/ruby/3.2.0 extconf.rb
+creating Makefile
+
+current directory: /Users/rajesh/Sourcetree/Sample/News-App-React-Native-main/vendor/bundle/ruby/3.2.0/gems/json-2.7.1/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20240226-73054-icpuop sitelibdir\=./.gem.20240226-73054-icpuop clean
+
+current directory: /Users/rajesh/Sourcetree/Sample/News-App-React-Native-main/vendor/bundle/ruby/3.2.0/gems/json-2.7.1/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20240226-73054-icpuop sitelibdir\=./.gem.20240226-73054-icpuop
+make: Nothing to be done for `all'.
+
+current directory: /Users/rajesh/Sourcetree/Sample/News-App-React-Native-main/vendor/bundle/ruby/3.2.0/gems/json-2.7.1/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20240226-73054-icpuop sitelibdir\=./.gem.20240226-73054-icpuop install
+
+current directory: /Users/rajesh/Sourcetree/Sample/News-App-React-Native-main/vendor/bundle/ruby/3.2.0/gems/json-2.7.1/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20240226-73054-icpuop sitelibdir\=./.gem.20240226-73054-icpuop clean

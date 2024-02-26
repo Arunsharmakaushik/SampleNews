@@ -1,10 +1,8 @@
-import {StyleSheet} from 'react-native';
-import {
-  horizontalScale,
-  responsiveFontSize,
-  verticalScale,
-} from '../../utils/METRIC';
+import { StyleSheet } from 'react-native';
 import COLORS from '../../utils/COLORS';
+import {
+  horizontalScale, verticalScale
+} from '../../utils/METRIC';
 
 const Styles = StyleSheet.create({
   main: {
@@ -25,11 +23,9 @@ const Styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.blue,
-    paddingHorizontal: horizontalScale(14),
-    paddingVertical: verticalScale(10),
-    borderRadius: 100,
-    color: COLORS.white,
-    fontSize: responsiveFontSize(13),
+    height:30,
+    width:30,
+    borderRadius:100,
   },
 });
 

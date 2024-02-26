@@ -1,24 +1,24 @@
-import {DrawerNavigationProp} from '@react-navigation/drawer';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import React from 'react';
 import {
   FlatList,
   ImageBackground,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native';
 import {
   heightPercentageToDP,
-  widthPercentageToDP,
+  widthPercentageToDP
 } from 'react-native-responsive-screen';
 import FONTS from '../../../assets/fonts/indec';
-import {INewsData} from '../../../typings/common';
-import {DrawerStackParams} from '../../../typings/route';
+import { INewsData } from '../../../typings/common';
+import { DrawerStackParams } from '../../../typings/route';
 import COLORS from '../../../utils/COLORS';
 import {
   horizontalScale,
   responsiveFontSize,
-  verticalScale,
+  verticalScale
 } from '../../../utils/METRIC';
 
 const BookMarkedItem = React.memo(
@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
   },
   itemCont: {
     borderRadius: 15,
+    borderWidth:0.3,
     overflow: 'hidden',
     width: widthPercentageToDP(90),
     backgroundColor: COLORS.white,
