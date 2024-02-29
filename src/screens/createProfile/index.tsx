@@ -1,6 +1,6 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import axios from 'axios';
-import React, { FC, useEffect, useState } from 'react';
+import React, {Dispatch, FC, SetStateAction, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -11,24 +11,25 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  ViewStyle
+  ViewStyle,
 } from 'react-native';
 import {
   heightPercentageToDP,
-  widthPercentageToDP
+  widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import { BackIcon } from '../../assets/icons';
+import {BackIcon} from '../../assets/icons';
 import ScreenWrapper from '../../components/wrapper/ScreenWrapper';
-import { User } from '../../typings/common';
-import { RootStackParams } from '../../typings/route';
+import {User} from '../../typings/common';
+import {RootStackParams} from '../../typings/route';
 import COLORS from '../../utils/COLORS';
 import ENDPOINTS from '../../utils/ENDPOINTS';
 import {
   horizontalScale,
   responsiveFontSize,
-  verticalScale
+  verticalScale,
 } from '../../utils/METRIC';
-import { storage } from '../../utils/Storage';
+import {storage} from '../../utils/Storage';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 type createProfileProps = NativeStackScreenProps<
   RootStackParams,
@@ -39,16 +40,34 @@ interface InputFieldProps {
   item: keyof User; // Assuming item is a string, adjust if necessary
   userDetails: User;
   handleChange: (key: keyof User, value: string) => void;
+  error: string;
+  showPassowrd: boolean;
+  setShowPassword: Dispatch<SetStateAction<boolean>>;
 }
 const InputField: FC<InputFieldProps> = React.memo(
-  ({item, userDetails, handleChange}) => {
+  ({item, userDetails, handleChange, error, setShowPassword, showPassowrd}) => {
     return (
-      <TextInput
-        value={userDetails[item]}
-        onChangeText={text => handleChange(item, text)}
-        placeholder={item.charAt(0).toUpperCase() + item.slice(1, item.length)}
-        style={styles.inputField}
-      />
+      <View style={styles.inputFieldView}>
+        <TextInput
+          value={userDetails[item]}
+          onChangeText={text => handleChange(item, text)}
+          placeholder={
+            item.charAt(0).toUpperCase() + item.slice(1, item.length)
+          }
+          style={styles.inputField}
+          secureTextEntry={item === 'password' && !showPassowrd}
+        />
+        {item === 'password' && (
+          <TouchableOpacity onPress={() => setShowPassword(!showPassowrd)}>
+            <EntypoIcon
+              name={showPassowrd ? 'eye-with-line' : 'eye'}
+              size={20}
+              color="grey"
+            />
+          </TouchableOpacity>
+        )}
+        {error && <Text style={styles.errorText}>{error}</Text>}
+      </View>
     );
   },
 );
@@ -65,6 +84,14 @@ const CreateProfile: FC<createProfileProps> = ({navigation}) => {
     phone: '',
     password: '',
   });
+  const [errors, setErrors] = useState<User>({
+    fullname: '',
+    email: '',
+    username: '',
+    phone: '',
+    password: '',
+  });
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (key: keyof User, value: string) => {
     setUserDetails(prevDetails => ({
@@ -75,7 +102,44 @@ const CreateProfile: FC<createProfileProps> = ({navigation}) => {
 
   const keyExtractor = (item: any, index: any) => item + index;
 
+  const validateForm = () => {
+    const {email, phone} = userDetails;
+    let newErrors = {
+      fullname: '',
+      email: '',
+      username: '',
+      phone: '',
+      password: '',
+    };
+    let isValid = true;
+
+    // Check for empty fields and set errors
+    Object.keys(newErrors).forEach(key => {
+      if (!userDetails[key as keyof User]) {
+        newErrors[key as keyof User] = 'This field is required.';
+        isValid = false;
+      }
+    });
+
+    // Email validation
+    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    if (!emailRegex.test(email)) {
+      newErrors.email = 'Please enter a valid email address.';
+      isValid = false;
+    }
+
+    const phoneRegex = /^\+?\d{10,15}$/; // Adjust regex as needed for your use case
+    if (phone && !phoneRegex.test(phone)) {
+      newErrors.phone = 'Please enter a valid phone number.';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const handleCreateUser = async () => {
+    if (!validateForm()) return;
     setIsLoading(true);
     try {
       const method = userId ? 'PUT' : 'POST';
@@ -155,38 +219,39 @@ const CreateProfile: FC<createProfileProps> = ({navigation}) => {
               item={item as keyof User}
               userDetails={userDetails}
               handleChange={handleChange}
+              error={errors[item as keyof User]}
+              showPassowrd={showPassword}
+              setShowPassword={setShowPassword}
             />
           )}
           keyExtractor={keyExtractor}
           contentContainerStyle={styles.listCont}
-          style={{flex:1}}
+          style={styles.main}
         />
-
-       
       </ScrollView>
       <View style={styles.btnCont}>
-          <TouchableOpacity onPress={handleCreateUser} style={styles.savebtn}>
-            <Text style={styles.saveBtnText}>
-              {isLoading ? (
-                <ActivityIndicator color={COLORS.white} />
-              ) : userId ? (
-                'Update Profile'
-              ) : (
-                'Create Details'
-              )}
-            </Text>
-          </TouchableOpacity>
+        <TouchableOpacity onPress={handleCreateUser} style={styles.savebtn}>
+          <Text style={styles.saveBtnText}>
+            {isLoading ? (
+              <ActivityIndicator color={COLORS.white} />
+            ) : userId ? (
+              'Update Profile'
+            ) : (
+              'Create Details'
+            )}
+          </Text>
+        </TouchableOpacity>
 
-          {!navigation.canGoBack() && (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.replace('getStarted');
-              }}
-              style={styles.skipbtn}>
-              <Text style={styles.skipBtnText}>Skip</Text>
-            </TouchableOpacity>
-          )}
-        </View>
+        {!navigation.canGoBack() && (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.replace('getStarted');
+            }}
+            style={styles.skipbtn}>
+            <Text style={styles.skipBtnText}>Skip</Text>
+          </TouchableOpacity>
+        )}
+      </View>
     </ScreenWrapper>
   );
 };
@@ -197,7 +262,7 @@ const styles = StyleSheet.create({
   main: {flex: 1},
 
   scrollCont: {
-    flex:1,
+    flex: 1,
     backgroundColor: COLORS.white,
     paddingHorizontal: horizontalScale(15),
     paddingBottom: verticalScale(10),
@@ -231,15 +296,24 @@ const styles = StyleSheet.create({
     paddingTop: verticalScale(15),
   },
 
-  inputField: {
-    paddingVertical: verticalScale(10),
-    paddingHorizontal: horizontalScale(10),
+  inputFieldView: {
+    paddingHorizontal: horizontalScale(12),
     backgroundColor: COLORS.lightGrey,
     fontSize: responsiveFontSize(15),
     borderRadius: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  inputField: {
+    flex: 1,
   },
 
-  btnCont: {gap: verticalScale(10), alignItems: 'center'},
+  btnCont: {
+    gap: verticalScale(10),
+    alignItems: 'center',
+    paddingVertical: verticalScale(10),
+    backgroundColor: COLORS.white,
+  },
 
   savebtn: {
     paddingVertical: verticalScale(18),
@@ -267,5 +341,10 @@ const styles = StyleSheet.create({
     color: COLORS.blue,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginTop: 5,
   },
 });
