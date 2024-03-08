@@ -3,8 +3,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import HeadBar from '../components/headBar/HeadBar';
 import About from '../screens/about';
-import BookMarks from '../screens/bookmarks';
-import Categories from '../screens/categories';
 import CreateProfile from '../screens/createProfile';
 import GetStrated from '../screens/getStarted/GetStrated';
 import Home from '../screens/home';

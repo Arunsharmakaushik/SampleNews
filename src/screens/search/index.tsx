@@ -1,5 +1,5 @@
-import { DrawerScreenProps } from '@react-navigation/drawer';
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import {DrawerScreenProps} from '@react-navigation/drawer';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   ScrollView,
@@ -7,20 +7,21 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import FONTS from '../../assets/fonts/indec';
-import { BackIcon, SearchIcon } from '../../assets/icons';
-import { DrawerStackParams } from '../../typings/route';
+import {BackIcon, SearchIcon} from '../../assets/icons';
+import {DrawerStackParams} from '../../typings/route';
 import COLORS from '../../utils/COLORS';
 import {
   horizontalScale,
   responsiveFontSize,
-  verticalScale
+  verticalScale,
 } from '../../utils/METRIC';
-import { storage } from '../../utils/Storage';
+import {storage} from '../../utils/Storage';
 import RecentSearchBox from './components/RecentSearchBox';
 import SearchedList from './components/SearchedList';
+import {INewsData} from '../../typings/common';
 
 type NewsArticleProps = DrawerScreenProps<DrawerStackParams, 'search'>;
 
@@ -29,11 +30,11 @@ const Search: FC<NewsArticleProps> = ({navigation}) => {
   const [isSearched, setIsSearched] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState<INewsData[]>([]);
 
   const [currentSearchedText, setCurrentSearchedText] = useState('');
 
-  const [filteredArticles, setFilteredArticles] = useState([]);
+  const [filteredArticles, setFilteredArticles] = useState<INewsData[]>([]);
 
   const handleSearchPress = () => {
     storage.setRecentSearches(searchWord);
@@ -66,7 +67,7 @@ const Search: FC<NewsArticleProps> = ({navigation}) => {
     setIsSearched(true);
   };
   const handleSearchedItemPress = useCallback(
-    () => navigation.navigate('newsArticle', {id: '658ee2c1772a5ede92efb5f5'}),
+    (id: string) => navigation.navigate('newsArticle', {id}),
     [navigation],
   );
 
@@ -101,7 +102,7 @@ const Search: FC<NewsArticleProps> = ({navigation}) => {
     return isSearched ? (
       <SearchedList
         articles={filteredArticles}
-        onItemPress={handleSearchedItemPress}
+        onItemPress={id => handleSearchedItemPress(id)}
       />
     ) : (
       <RecentSearchBox
@@ -191,7 +192,7 @@ const styles = StyleSheet.create({
   },
   inputBox: {
     flex: 1,
-    paddingVertical:5
+    paddingVertical: 5,
   },
   ListText: {
     fontFamily: FONTS.medium,
