@@ -42,8 +42,7 @@ const Splash: React.FC<SplashProps> = ({navigation}) => {
       StatusBarColor={COLORS.blue}
       contentColor="light-content"
       Styles={Styles.main}>
-      <AppLogo width={wp(30)} height={hp(15)} fill="red" />
-      <Text style={Styles.text}>AERON</Text>
+      <AppLogo width={wp(35)} height={hp(20)} />
     </ScreenWrapper>
   );
 };
